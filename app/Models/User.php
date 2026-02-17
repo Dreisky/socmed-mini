@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
@@ -18,10 +17,25 @@ class User extends Authenticatable
      * @var list<string>
      */
     protected $fillable = [
-        'name',
+        'username',
         'email',
         'password',
     ];
+
+    public function posts()
+    {
+        return $this->hasMany(Post::class);
+    }
+
+    public function comments()
+    {
+        return $this->hasMany(Comment::class);
+    }
+
+    public function likes()
+    {
+        return $this->hasMany(Like::class);
+    }
 
     /**
      * The attributes that should be hidden for serialization.
@@ -42,7 +56,7 @@ class User extends Authenticatable
     {
         return [
             'email_verified_at' => 'datetime',
-            'password' => 'hashed',
+            'password'          => 'hashed',
         ];
     }
 }
