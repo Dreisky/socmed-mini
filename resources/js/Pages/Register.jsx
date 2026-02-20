@@ -1,11 +1,36 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Field, FieldGroup, FieldLabel } from "@/components/ui/field";
-import { DitherShader } from "@/components/ui/dither-shader";
 import { Link } from "@inertiajs/react";
 import { route } from "ziggy-js";
+import { useForm } from "@inertiajs/react";
+import {
+    Select,
+    SelectContent,
+    SelectGroup,
+    SelectItem,
+    SelectLabel,
+    SelectTrigger,
+    SelectValue,
+} from "@/components/ui/select";
 
 export default function Register() {
+    const { data, setData, post, processing, reset } = useForm({
+        username: "",
+        email: "",
+        gender: "",
+        password: "",
+    });
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        post(route("user.store"), {
+            onSuccess: () => reset(),
+        });
+    };
+
+    console.log(data);
+
     return (
         <>
             <div className="flex items-center justify-between border-b py-4 px-8">
@@ -26,65 +51,93 @@ export default function Register() {
                                 Sign up
                             </FieldLabel>
                         </Field>
+                        <form onSubmit={handleSubmit}>
+                            <FieldGroup>
+                                <Field>
+                                    <FieldLabel htmlFor="name">
+                                        Username
+                                    </FieldLabel>
+                                    <Input
+                                        id="name"
+                                        value={data.username}
+                                        onChange={(e) =>
+                                            setData("username", e.target.value)
+                                        }
+                                        className="text-lg py-6 px-4"
+                                        placeholder="John Smith"
+                                    />
+                                </Field>
 
-                        <FieldGroup>
-                            <Field>
-                                <FieldLabel htmlFor="name">Name</FieldLabel>
-                                <Input
-                                    id="name"
-                                    className="text-lg py-6 px-4"
-                                    placeholder="John Smith"
-                                />
-                            </Field>
+                                <Field>
+                                    <FieldLabel htmlFor="name">
+                                        Gender
+                                    </FieldLabel>
+                                    <Select
+                                        value={data.gender}
+                                        onValueChange={(value) =>
+                                            setData("gender", value)
+                                        }
+                                    >
+                                        <SelectTrigger className="w-full p-6">
+                                            <SelectValue placeholder="Select Gender" />
+                                        </SelectTrigger>
+                                        <SelectContent>
+                                            <SelectGroup>
+                                                <SelectLabel>
+                                                    Gender
+                                                </SelectLabel>
+                                                <SelectItem value="male">
+                                                    Male
+                                                </SelectItem>
+                                                <SelectItem value="female">
+                                                    Female
+                                                </SelectItem>
+                                            </SelectGroup>
+                                        </SelectContent>
+                                    </Select>
+                                </Field>
 
-                            <Field>
-                                <FieldLabel htmlFor="name">Birthday</FieldLabel>
-                                <Input
-                                    id="name"
-                                    className="text-lg py-6 px-4"
-                                    placeholder="John Smith"
-                                />
-                            </Field>
+                                <Field>
+                                    <FieldLabel htmlFor="name">
+                                        Email
+                                    </FieldLabel>
+                                    <Input
+                                        id="name"
+                                        value={data.email}
+                                        onChange={(e) =>
+                                            setData("email", e.target.value)
+                                        }
+                                        className="text-lg py-6 px-4"
+                                        placeholder="johnsmith@gmail.com"
+                                    />
+                                </Field>
 
-                            <Field>
-                                <FieldLabel htmlFor="name">Gender</FieldLabel>
-                                <Input
-                                    id="name"
-                                    className="text-lg py-6 px-4"
-                                    placeholder="John Smith"
-                                />
-                            </Field>
+                                <Field>
+                                    <FieldLabel htmlFor="password">
+                                        Password
+                                    </FieldLabel>
+                                    <Input
+                                        id="password"
+                                        type="password"
+                                        value={data.password}
+                                        onChange={(e) =>
+                                            setData("password", e.target.value)
+                                        }
+                                        className="py-6 px-4"
+                                        placeholder="••••••••"
+                                    />
+                                </Field>
 
-                            <Field>
-                                <FieldLabel htmlFor="name">Email</FieldLabel>
-                                <Input
-                                    id="name"
-                                    className="text-lg py-6 px-4"
-                                    placeholder="John Smith"
-                                />
-                            </Field>
-
-                            <Field>
-                                <FieldLabel htmlFor="password">
-                                    Password
-                                </FieldLabel>
-                                <Input
-                                    id="password"
-                                    type="password"
-                                    className="py-6 px-4"
-                                    placeholder="••••••••"
-                                />
-                            </Field>
-
-                            <div className="space-y-4 mt-6">
-                                <Button
-                                    type="submit"
-                                    className="w-full py-6 rounded-full text-md"
-                                >
-                                    Sign up
-                                </Button>
-                            </div>
-                        </FieldGroup>
+                                <div className="space-y-4 mt-6">
+                                    <Button
+                                        type="submit"
+                                        className="w-full py-6 rounded-full text-md"
+                                    >
+                                        Sign up
+                                    </Button>
+                                </div>
+                            </FieldGroup>
+                        </form>
                     </div>
                 </div>
             </div>
