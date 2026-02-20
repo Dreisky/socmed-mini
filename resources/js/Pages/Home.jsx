@@ -2,6 +2,8 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Field, FieldGroup, FieldLabel } from "@/components/ui/field";
 import { DitherShader } from "@/components/ui/dither-shader";
+import { Link } from "@inertiajs/react";
+import { route } from "ziggy-js";
 
 export default function Home() {
     return (
@@ -84,7 +86,9 @@ export default function Home() {
                                 type="button"
                                 className="w-full py-6 rounded-full text-md"
                             >
-                                Create new account
+                                <Link href={route("user.register")}>
+                                    Create new account
+                                </Link>
                             </Button>
                         </div>
                     </FieldGroup>
