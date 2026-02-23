@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\RegisteredUserController;
 use App\Http\Controllers\SessionController;
 use Illuminate\Support\Facades\Route;
@@ -10,6 +11,6 @@ Route::get('/register', [RegisteredUserController::class, 'index'])->name('user.
 Route::post('/register', [RegisteredUserController::class, 'store'])->name('user.store');
 
 Route::middleware(['auth'])->group(function () {
-    Route::get('/', [SessionController::class, 'index'])->name('user.index');
+    Route::get('/', [HomeController::class, 'index'])->name('home.index');
 
 });
