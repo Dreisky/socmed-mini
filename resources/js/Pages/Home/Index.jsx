@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { Link, useForm } from "@inertiajs/react";
+import { useForm } from "@inertiajs/react";
 import { route } from "ziggy-js";
 
 export default function Index() {
@@ -15,7 +15,9 @@ export default function Index() {
             <p>Hi youre now logged in</p>
 
             <form onSubmit={handleSubmit}>
-                <Button type="submit">Log out</Button>
+                <Button type="submit" disabled={processing}>
+                    Log out
+                </Button>
             </form>
         </>
     );
