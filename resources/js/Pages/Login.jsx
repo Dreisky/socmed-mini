@@ -5,7 +5,7 @@ import { DitherShader } from "@/components/ui/dither-shader";
 import { Link, useForm } from "@inertiajs/react";
 import { route } from "ziggy-js";
 
-export default function Home() {
+export default function Login() {
     const { data, setData, post, processing, errors, reset } = useForm({
         username: "",
         password: "",

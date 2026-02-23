@@ -9,7 +9,7 @@ class SessionController extends Controller
 {
     public function index()
     {
-        return inertia('Home');
+        return inertia('Login');
     }
 
     public function store(Request $request)

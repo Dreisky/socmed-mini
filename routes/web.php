@@ -10,7 +10,6 @@ Route::get('/register', [RegisteredUserController::class, 'index'])->name('user.
 Route::post('/register', [RegisteredUserController::class, 'store'])->name('user.store');
 
 Route::middleware(['auth'])->group(function () {
-    Route::prefix('/admins')->group(function () {
+    Route::get('/', [SessionController::class, 'index'])->name('user.index');
 
-    });
 });
