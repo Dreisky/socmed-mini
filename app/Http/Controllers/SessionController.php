@@ -12,21 +12,21 @@ class SessionController extends Controller
         return inertia('Home');
     }
 
-    public function store()
+    public function store(Request $request)
     {
-        $attributes = request()->validate([
-            'email'    => ['required', 'email'],
+        $attributes = $request->validate([
+            'username' => ['required'],
             'password' => ['required'],
         ]);
 
         if (! Auth::attempt($attributes)) {
             throw ValidationException::withMessages([
-                'email' => 'Sorry, those credentials do not match.',
+                'username' => 'Sorry, those credentials do not match.',
             ]);
         }
 
         request()->session()->regenerate();
 
-        return redirect('/jobs');
+        return redirect('/');
     }
 }

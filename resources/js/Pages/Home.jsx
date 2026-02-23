@@ -2,10 +2,24 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Field, FieldGroup, FieldLabel } from "@/components/ui/field";
 import { DitherShader } from "@/components/ui/dither-shader";
-import { Link } from "@inertiajs/react";
+import { Link, useForm } from "@inertiajs/react";
 import { route } from "ziggy-js";
 
 export default function Home() {
+    const { data, setData, post, processing, errors, reset } = useForm({
+        username: "",
+        password: "",
+    });
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        post(route("user.login"), {
+            onSuccess: () => reset(),
+        });
+    };
+
+    console.log(data);
+
     return (
         <div className="min-h-screen flex flex-col md:flex-row">
             <div className="hidden md:flex flex-1 border-e p-12 items-center justify-center">
@@ -45,53 +59,78 @@ export default function Home() {
                         </FieldLabel>
                     </Field>
 
-                    <FieldGroup>
-                        <Field>
-                            <FieldLabel htmlFor="name">Name</FieldLabel>
-                            <Input
-                                id="name"
-                                className="text-lg py-6 px-4"
-                                placeholder="John Smith"
-                            />
-                        </Field>
+                    <form onSubmit={handleSubmit}>
+                        <FieldGroup>
+                            <Field>
+                                <FieldLabel htmlFor="username">
+                                    Username
+                                </FieldLabel>
+                                <Input
+                                    id="username"
+                                    value={data.username}
+                                    onChange={(e) =>
+                                        setData("username", e.target.value)
+                                    }
+                                    className="text-lg py-6 px-4"
+                                    placeholder="John Smith"
+                                />
+                                {errors.username && (
+                                    <p className="text-red-500 text-xs italic">
+                                        {errors.username}
+                                    </p>
+                                )}
+                            </Field>
 
-                        <Field>
-                            <FieldLabel htmlFor="password">Password</FieldLabel>
-                            <Input
-                                id="password"
-                                type="password"
-                                className="py-6 px-4"
-                                placeholder="••••••••"
-                            />
-                        </Field>
+                            <Field>
+                                <FieldLabel htmlFor="password">
+                                    Password
+                                </FieldLabel>
+                                <Input
+                                    id="password"
+                                    value={data.password}
+                                    onChange={(e) =>
+                                        setData("password", e.target.value)
+                                    }
+                                    type="password"
+                                    className="py-6 px-4"
+                                    placeholder="######"
+                                />
+                                {errors.password && (
+                                    <p className="text-red-500 text-xs italic">
+                                        {errors.password}
+                                    </p>
+                                )}
+                            </Field>
 
-                        <div className="space-y-4 mt-6">
-                            <Button
-                                type="submit"
-                                className="w-full py-6 rounded-full text-md"
-                            >
-                                Log in
-                            </Button>
+                            <div className="space-y-4 mt-6">
+                                <Button
+                                    type="submit"
+                                    className="w-full py-6 rounded-full text-md"
+                                    disabled={processing}
+                                >
+                                    Log in
+                                </Button>
 
-                            <Button
-                                variant="ghost"
-                                type="button"
-                                className="w-full py-6 rounded-full text-md"
-                            >
-                                Forgot password?
-                            </Button>
+                                <Button
+                                    variant="ghost"
+                                    type="button"
+                                    className="w-full py-6 rounded-full text-md"
+                                >
+                                    Forgot password?
+                                </Button>
 
-                            <Button
-                                variant="outline"
-                                type="button"
-                                className="w-full py-6 rounded-full text-md"
-                            >
-                                <Link href={route("user.register")}>
-                                    Create new account
-                                </Link>
-                            </Button>
-                        </div>
-                    </FieldGroup>
+                                <Button
+                                    variant="outline"
+                                    type="button"
+                                    className="w-full py-6 rounded-full text-md"
+                                >
+                                    <Link href={route("user.register")}>
+                                        Create new account
+                                    </Link>
+                                </Button>
+                            </div>
+                        </FieldGroup>
+                    </form>
                 </div>
             </div>
         </div>

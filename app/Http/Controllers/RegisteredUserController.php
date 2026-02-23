@@ -3,7 +3,6 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 
 class RegisteredUserController extends Controller
 {
@@ -23,8 +22,8 @@ class RegisteredUserController extends Controller
 
         $user = User::Create($attributes);
 
-        Auth::login($user);
+        // Auth::login($user);
 
-        return redirect('/');
+        return redirect('/login');
     }
 }
