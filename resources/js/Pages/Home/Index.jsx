@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { useForm } from "@inertiajs/react";
+import { useForm, usePage } from "@inertiajs/react";
 import { route } from "ziggy-js";
 import Layout from "../Layout/Layout";
 import {
@@ -12,9 +12,9 @@ import {
     CardTitle,
 } from "@/components/ui/card";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Input } from "@/components/ui/input";
-
 export default function Index() {
+    const { auth } = usePage().props;
+
     return (
         <>
             <div className="grid grid-cols-[2fr_1fr] gap-4">
@@ -33,7 +33,7 @@ export default function Index() {
                                 variant="outline"
                                 className="flex-1 text-start rounded-full"
                             >
-                                What's on your mind, Shad?
+                                What's on your mind, {auth.user.username}?
                             </Button>
                         </CardContent>
                     </Card>
@@ -52,7 +52,7 @@ export default function Index() {
                                 </Avatar>
                                 <div>
                                     <p className="font-semibold text-sm">
-                                        Shad Cn
+                                        {auth.user.username}
                                     </p>
                                     <p className="font-light text-xs">
                                         January 12, 2021
@@ -61,7 +61,7 @@ export default function Index() {
                             </div>
                         </CardHeader>
                         <CardContent>
-                            <div className="border rounded-sm text-center p-8">
+                            <div className="border rounded-lg text-center p-8">
                                 hello
                             </div>
                         </CardContent>
