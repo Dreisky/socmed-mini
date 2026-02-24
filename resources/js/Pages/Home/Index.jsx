@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { useForm } from "@inertiajs/react";
 import { route } from "ziggy-js";
+import Layout from "../Layout/Layout";
 
 export default function Index() {
     const { delete: destroy, processing } = useForm();
@@ -22,3 +23,5 @@ export default function Index() {
         </>
     );
 }
+
+Index.layout = (page) => <Layout>{page}</Layout>;
