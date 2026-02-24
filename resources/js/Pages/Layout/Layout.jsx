@@ -5,6 +5,12 @@ import {
 } from "@/components/ui/sidebar";
 import { AppSidebar } from "@/components/app-sidebar";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import {
+    InputGroup,
+    InputGroupAddon,
+    InputGroupInput,
+} from "@/components/ui/input-group";
+import { Search } from "lucide-react";
 // import ThemeToggle from "@/components/theme-toggle";
 
 export default function Layout({ children, header }) {
@@ -20,13 +26,22 @@ export default function Layout({ children, header }) {
                     </div>
                     <div className="flex items-center gap-2">
                         {/* <ThemeToggle /> */}
-                        <Avatar>
+                        {/* <Avatar>
                             <AvatarImage
                                 src="https://github.com/shadcn.png"
                                 className="grayscale"
                             />
                             <AvatarFallback>CN</AvatarFallback>
-                        </Avatar>
+                        </Avatar> */}
+                        <InputGroup className="max-w-xs">
+                            <InputGroupInput placeholder="Search..." />
+                            <InputGroupAddon>
+                                <Search />
+                            </InputGroupAddon>
+                            <InputGroupAddon align="inline-end">
+                                12 results
+                            </InputGroupAddon>
+                        </InputGroup>
                     </div>
                 </header>
 

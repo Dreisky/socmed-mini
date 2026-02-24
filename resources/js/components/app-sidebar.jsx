@@ -43,9 +43,16 @@ export function AppSidebar() {
 
     return (
         <Sidebar>
-            <SidebarHeader className="px-4 h-14 flex flex-row items-center border-b">
-                <Codesandbox />
-                <h1 className="font-semibold">Cms Inc.</h1>
+            <SidebarHeader className="px-4 py-6 flex items-center justify-center border-b">
+                <Avatar className="w-28 h-28">
+                    <AvatarImage
+                        src="https://github.com/shadcn.png"
+                        alt="@shadcn"
+                        className="grayscale"
+                    />
+                    <AvatarFallback>CN</AvatarFallback>
+                </Avatar>
+                <p className="mt-4">Shad CN</p>
             </SidebarHeader>
 
             <SidebarContent>
