@@ -12,8 +12,12 @@ import {
     CardTitle,
 } from "@/components/ui/card";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { useState } from "react";
+import AddPostModal from "../../components/PostModal/AddPostModal";
 export default function Index() {
     const { auth } = usePage().props;
+
+    const [addPostModalOpen, setAddPostModalOpen] = useState(false);
 
     return (
         <>
@@ -30,6 +34,9 @@ export default function Index() {
                                 <AvatarFallback>CN</AvatarFallback>
                             </Avatar>
                             <Button
+                                onClick={() => {
+                                    setAddPostModalOpen(true);
+                                }}
                                 variant="outline"
                                 className="flex-1 text-start rounded-full"
                             >
@@ -77,6 +84,11 @@ export default function Index() {
                     <p>Under Dev...</p>
                 </div>
             </div>
+
+            <AddPostModal
+                open={addPostModalOpen}
+                onOpenChange={setAddPostModalOpen}
+            />
         </>
     );
 }
