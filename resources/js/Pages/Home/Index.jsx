@@ -14,7 +14,7 @@ import {
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { useState } from "react";
 import AddPostModal from "../../components/PostModal/AddPostModal";
-export default function Index() {
+export default function Index({ posts }) {
     const { auth } = usePage().props;
 
     const [addPostModalOpen, setAddPostModalOpen] = useState(false);
@@ -22,7 +22,7 @@ export default function Index() {
     return (
         <>
             <div className="grid grid-cols-[2fr_1fr] gap-4">
-                <div className="border-e pe-6 space-y-3">
+                <div className="space-y-3 border-e pe-6">
                     <Card>
                         <CardContent className="flex items-center gap-2">
                             <Avatar>
@@ -38,7 +38,7 @@ export default function Index() {
                                     setAddPostModalOpen(true);
                                 }}
                                 variant="outline"
-                                className="flex-1 text-start rounded-full"
+                                className="flex-1 rounded-full text-start"
                             >
                                 What's on your mind, {auth.user.username}?
                             </Button>
@@ -46,39 +46,44 @@ export default function Index() {
                     </Card>
 
                     {/* POSTS */}
-                    <Card>
-                        <CardHeader>
-                            <div className="flex items-center gap-2">
-                                <Avatar>
-                                    <AvatarImage
-                                        src="https://github.com/shadcn.png"
-                                        alt="@shadcn"
-                                        className="grayscale"
-                                    />
-                                    <AvatarFallback>CN</AvatarFallback>
-                                </Avatar>
-                                <div>
-                                    <p className="font-semibold text-sm">
-                                        {auth.user.username}
-                                    </p>
-                                    <p className="font-light text-xs">
-                                        January 12, 2021
-                                    </p>
+
+                    {posts.map((post) => (
+                        <Card>
+                            <CardHeader>
+                                <div className="flex items-center gap-2">
+                                    <Avatar>
+                                        <AvatarImage
+                                            src="https://github.com/shadcn.png"
+                                            alt="@shadcn"
+                                            className="grayscale"
+                                        />
+                                        <AvatarFallback>CN</AvatarFallback>
+                                    </Avatar>
+                                    <div>
+                                        <p className="text-sm font-semibold">
+                                            {post.user.username}
+                                        </p>
+                                        <p className="text-xs font-light">
+                                            {new Date(
+                                                post.created_at,
+                                            ).toLocaleString()}
+                                        </p>
+                                    </div>
                                 </div>
-                            </div>
-                        </CardHeader>
-                        <CardContent>
-                            <div className="border rounded-lg text-center p-8">
-                                hello
-                            </div>
-                        </CardContent>
-                        <CardFooter>
-                            <div className="grid grid-cols-2 w-full gap-2">
-                                <Button variant="ghost">Like</Button>
-                                <Button variant="ghost">Comment</Button>
-                            </div>
-                        </CardFooter>
-                    </Card>
+                            </CardHeader>
+                            <CardContent>
+                                <div className="p-8 text-center border rounded-lg">
+                                    {post.description}
+                                </div>
+                            </CardContent>
+                            <CardFooter>
+                                <div className="grid w-full grid-cols-2 gap-2">
+                                    <Button variant="ghost">Like</Button>
+                                    <Button variant="ghost">Comment</Button>
+                                </div>
+                            </CardFooter>
+                        </Card>
+                    ))}
                 </div>
                 <div>
                     <p>Under Dev...</p>

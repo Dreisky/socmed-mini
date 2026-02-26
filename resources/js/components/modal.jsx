@@ -4,6 +4,7 @@ import {
     DialogHeader,
     DialogTitle,
 } from "@/components/ui/dialog";
+import { Separator } from "@/components/ui/separator";
 
 export default function Modal({ open, onOpenChange, title, children }) {
     return (
@@ -12,6 +13,7 @@ export default function Modal({ open, onOpenChange, title, children }) {
                 <DialogHeader>
                     <DialogTitle>{title}</DialogTitle>
                 </DialogHeader>
+                <Separator />
                 {children}
             </DialogContent>
         </Dialog>
