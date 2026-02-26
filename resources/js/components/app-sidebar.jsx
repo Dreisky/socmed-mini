@@ -33,6 +33,7 @@ import { route } from "ziggy-js";
 
 export function AppSidebar() {
     const { url } = usePage();
+    const { auth } = usePage().props;
 
     const { delete: destroy, processing } = useForm();
 
@@ -43,7 +44,7 @@ export function AppSidebar() {
 
     return (
         <Sidebar>
-            <SidebarHeader className="px-4 py-6 flex items-center justify-center border-b">
+            <SidebarHeader className="flex items-center justify-center px-4 py-6 border-b">
                 <Avatar className="w-28 h-28">
                     <AvatarImage
                         src="https://github.com/shadcn.png"
@@ -52,7 +53,14 @@ export function AppSidebar() {
                     />
                     <AvatarFallback>CN</AvatarFallback>
                 </Avatar>
-                <p className="mt-4">Shad CN</p>
+                <div className="text-center">
+                    <p className="mt-4 mb-0 text-xl font-bold uppercase">
+                        {auth.user.username}
+                    </p>
+                    <p className="text-xs italic font-light">
+                        {auth.user.email}
+                    </p>
+                </div>
             </SidebarHeader>
 
             <SidebarContent>
@@ -69,7 +77,7 @@ export function AppSidebar() {
                                     )}
                                 >
                                     <Link href="/">
-                                        <Home className="mr-2 h-4 w-4" />
+                                        <Home className="w-4 h-4 mr-2" />
                                         Dashboard
                                     </Link>
                                 </SidebarMenuButton>
@@ -81,7 +89,7 @@ export function AppSidebar() {
                                     isActive={url.startsWith("/clients")}
                                 >
                                     <Link href="/clients">
-                                        <Users className="mr-2 h-4 w-4" />
+                                        <Users className="w-4 h-4 mr-2" />
                                         Clients
                                     </Link>
                                 </SidebarMenuButton>
@@ -90,7 +98,7 @@ export function AppSidebar() {
                             <SidebarMenuItem>
                                 <SidebarMenuButton asChild>
                                     <Link href="/reports">
-                                        <FileText className="mr-2 h-4 w-4" />
+                                        <FileText className="w-4 h-4 mr-2" />
                                         Reports
                                     </Link>
                                 </SidebarMenuButton>
@@ -110,7 +118,7 @@ export function AppSidebar() {
                                     isActive={route().current("budget.track")}
                                 >
                                     <Link href="/track">
-                                        <FileText className="mr-2 h-4 w-4" />
+                                        <FileText className="w-4 h-4 mr-2" />
                                         Track
                                     </Link>
                                 </SidebarMenuButton>
@@ -123,7 +131,7 @@ export function AppSidebar() {
             <SidebarFooter>
                 <DropdownMenu className="w-full">
                     <DropdownMenuTrigger asChild>
-                        <div className="flex items-center justify-between hover:bg-muted p-2 rounded-sm">
+                        <div className="flex items-center justify-between p-2 rounded-sm hover:bg-muted">
                             <div className="flex items-center gap-2">
                                 <Avatar className="rounded-md">
                                     <AvatarImage
@@ -133,8 +141,8 @@ export function AppSidebar() {
                                     <AvatarFallback>CN</AvatarFallback>
                                 </Avatar>
                                 <div className="flex flex-col justify-center leading-4">
-                                    <p className="font-semibold m-0">shadCn</p>
-                                    <p className="opacity-50 text-xs m-0">
+                                    <p className="m-0 font-semibold">shadCn</p>
+                                    <p className="m-0 text-xs opacity-50">
                                         scn@example.com
                                     </p>
                                 </div>
@@ -155,7 +163,7 @@ export function AppSidebar() {
                             </Avatar>
                             <div className="flex flex-col justify-center">
                                 <p className="font-semibold">shadCn</p>
-                                <p className="opacity-50 text-xs">
+                                <p className="text-xs opacity-50">
                                     scn@example.com
                                 </p>
                             </div>
@@ -182,7 +190,7 @@ export function AppSidebar() {
                             <DropdownMenuItem asChild variant="destructive">
                                 <button
                                     type="submit"
-                                    className="w-full flex items-center py-3 gap-2"
+                                    className="flex items-center w-full gap-2 py-3"
                                 >
                                     <LogOutIcon />
                                     Log out
