@@ -26,4 +26,9 @@ class PostController extends Controller
 
         $post->update($validated);
     }
+
+    public function destroy(Post $post)
+    {
+        $post->delete();
+    }
 }

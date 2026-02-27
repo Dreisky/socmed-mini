@@ -23,6 +23,7 @@ import { useState } from "react";
 import AddPostModal from "../../components/PostModal/AddPostModal";
 import { Ellipsis, Pencil, Trash } from "lucide-react";
 import EditPostModal from "@/components/PostModal/EditPostModal";
+import DeletePostModal from "@/components/PostModal/DeletePostModal";
 
 export default function Index({ posts }) {
     const { auth } = usePage().props;
@@ -31,6 +32,7 @@ export default function Index({ posts }) {
 
     const [addPostModalOpen, setAddPostModalOpen] = useState(false);
     const [editPostModalOpen, setEditPostModalOpen] = useState(false);
+    const [deletePostModalOpen, setDeletePostModalOpen] = useState(false);
 
     return (
         <>
@@ -118,7 +120,17 @@ export default function Index({ posts }) {
                                                             <Pencil />
                                                             Edit
                                                         </DropdownMenuItem>
-                                                        <DropdownMenuItem variant="destructive">
+                                                        <DropdownMenuItem
+                                                            variant="destructive"
+                                                            onClick={() => {
+                                                                setActivePost(
+                                                                    post,
+                                                                );
+                                                                setDeletePostModalOpen(
+                                                                    true,
+                                                                );
+                                                            }}
+                                                        >
                                                             <Trash />
                                                             Delete
                                                         </DropdownMenuItem>
@@ -156,6 +168,11 @@ export default function Index({ posts }) {
                 post={activePost}
                 open={editPostModalOpen}
                 onOpenChange={setEditPostModalOpen}
+            />
+            <DeletePostModal
+                post={activePost}
+                open={deletePostModalOpen}
+                onOpenChange={setDeletePostModalOpen}
             />
         </>
     );
