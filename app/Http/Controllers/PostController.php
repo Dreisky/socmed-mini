@@ -17,4 +17,13 @@ class PostController extends Controller
             'description' => $validated['description'],
         ]);
     }
+
+    public function update(Post $post, Request $request)
+    {
+        $validated = $request->validate([
+            'description' => ['required'],
+        ]);
+
+        $post->update($validated);
+    }
 }

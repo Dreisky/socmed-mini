@@ -11,13 +11,26 @@ import {
     CardHeader,
     CardTitle,
 } from "@/components/ui/card";
+import {
+    DropdownMenu,
+    DropdownMenuContent,
+    DropdownMenuItem,
+    DropdownMenuSeparator,
+    DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { useState } from "react";
 import AddPostModal from "../../components/PostModal/AddPostModal";
+import { Ellipsis, Pencil, Trash } from "lucide-react";
+import EditPostModal from "@/components/PostModal/EditPostModal";
+
 export default function Index({ posts }) {
     const { auth } = usePage().props;
 
+    const [activePost, setActivePost] = useState(null);
+
     const [addPostModalOpen, setAddPostModalOpen] = useState(false);
+    const [editPostModalOpen, setEditPostModalOpen] = useState(false);
 
     return (
         <>
@@ -25,7 +38,7 @@ export default function Index({ posts }) {
                 <div className="space-y-3 border-e pe-6">
                     <Card>
                         <CardContent className="flex items-center gap-2">
-                            <Avatar>
+                            <Avatar className="h-10 w-10">
                                 <AvatarImage
                                     src="https://github.com/shadcn.png"
                                     alt="@shadcn"
@@ -39,6 +52,7 @@ export default function Index({ posts }) {
                                 }}
                                 variant="outline"
                                 className="flex-1 rounded-full text-start"
+                                size="lg"
                             >
                                 What's on your mind, {auth.user.username}?
                             </Button>
@@ -48,26 +62,70 @@ export default function Index({ posts }) {
                     {/* POSTS */}
 
                     {posts.map((post) => (
-                        <Card>
+                        <Card key={post.id}>
                             <CardHeader>
-                                <div className="flex items-center gap-2">
-                                    <Avatar>
-                                        <AvatarImage
-                                            src="https://github.com/shadcn.png"
-                                            alt="@shadcn"
-                                            className="grayscale"
-                                        />
-                                        <AvatarFallback>CN</AvatarFallback>
-                                    </Avatar>
+                                <div className="flex items-center justify-between capitalize">
+                                    <div className="flex items-center gap-2">
+                                        <Avatar className="w-10 h-10">
+                                            <AvatarImage
+                                                src="https://github.com/shadcn.png"
+                                                alt="@shadcn"
+                                                className="grayscale"
+                                            />
+                                            <AvatarFallback>CN</AvatarFallback>
+                                        </Avatar>
+                                        <div>
+                                            <p className="font-semibold text-md">
+                                                {post.user.username}
+                                            </p>
+                                            <p className="text-xs italic font-light">
+                                                {new Date(
+                                                    post.created_at,
+                                                ).toLocaleString("en-US", {
+                                                    year: "numeric",
+                                                    month: "long",
+                                                    day: "numeric",
+                                                    hour: "numeric",
+                                                    minute: "2-digit",
+                                                    hour12: true,
+                                                })}
+                                            </p>
+                                        </div>
+                                    </div>
                                     <div>
-                                        <p className="text-sm font-semibold">
-                                            {post.user.username}
-                                        </p>
-                                        <p className="text-xs font-light">
-                                            {new Date(
-                                                post.created_at,
-                                            ).toLocaleString()}
-                                        </p>
+                                        {auth.user.id === post.user.id && (
+                                            <div>
+                                                <DropdownMenu>
+                                                    <DropdownMenuTrigger
+                                                        asChild
+                                                    >
+                                                        <Button variant="ghost">
+                                                            <Ellipsis />
+                                                        </Button>
+                                                    </DropdownMenuTrigger>
+
+                                                    <DropdownMenuContent align="end">
+                                                        <DropdownMenuItem
+                                                            onClick={() => {
+                                                                setActivePost(
+                                                                    post,
+                                                                );
+                                                                setEditPostModalOpen(
+                                                                    true,
+                                                                );
+                                                            }}
+                                                        >
+                                                            <Pencil />
+                                                            Edit
+                                                        </DropdownMenuItem>
+                                                        <DropdownMenuItem variant="destructive">
+                                                            <Trash />
+                                                            Delete
+                                                        </DropdownMenuItem>
+                                                    </DropdownMenuContent>
+                                                </DropdownMenu>
+                                            </div>
+                                        )}
                                     </div>
                                 </div>
                             </CardHeader>
@@ -93,6 +151,11 @@ export default function Index({ posts }) {
             <AddPostModal
                 open={addPostModalOpen}
                 onOpenChange={setAddPostModalOpen}
+            />
+            <EditPostModal
+                post={activePost}
+                open={editPostModalOpen}
+                onOpenChange={setEditPostModalOpen}
             />
         </>
     );

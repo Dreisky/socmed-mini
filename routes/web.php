@@ -6,7 +6,9 @@ use App\Http\Controllers\RegisteredUserController;
 use App\Http\Controllers\SessionController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/login', [SessionController::class, 'index'])->name('user.index');
+Route::redirect('/', '/login');
+
+Route::get('/login', [SessionController::class, 'index'])->name('login');
 Route::post('/login', [SessionController::class, 'store'])->name('user.login');
 Route::delete('/logout', [SessionController::class, 'destroy'])->name('user.logout');
 Route::get('/register', [RegisteredUserController::class, 'index'])->name('user.register');
@@ -16,4 +18,5 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/', [HomeController::class, 'index'])->name('home.index');
 
     Route::post('/post', [PostController::class, 'store'])->name('post.store');
+    Route::put('/post/{post}', [PostController::class, 'update'])->name('post.update');
 });
