@@ -8,9 +8,21 @@ class LikeController extends Controller
 {
     public function store(Post $post)
     {
-        Like::firstOrCreate([
+        $like = Like::where([
             'post_id' => $post->id,
-            'user_id' => auth()->user()->id,
+            'user_id' => auth()->id(),
+        ])->first();
+
+        if ($like) {
+            // Already liked → remove the like
+            $like->delete();
+            return;
+        }
+
+        // Not liked yet → create the like
+        Like::create([
+            'post_id' => $post->id,
+            'user_id' => auth()->id(),
         ]);
     }
 }
