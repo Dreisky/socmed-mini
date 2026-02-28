@@ -1,7 +1,8 @@
-import { Button } from "@/components/ui/button";
-import { useForm, usePage } from "@inertiajs/react";
-import { route } from "ziggy-js";
 import Layout from "../Layout/Layout";
+
+import LikeButton from "@/components/LikeButton";
+
+import { Button } from "@/components/ui/button";
 import {
     Card,
     CardAction,
@@ -18,12 +19,20 @@ import {
     DropdownMenuSeparator,
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+
 import { useState } from "react";
-import AddPostModal from "../../components/PostModal/AddPostModal";
+
 import { Ellipsis, Pencil, Trash } from "lucide-react";
+
+import AddPostModal from "../../components/PostModal/AddPostModal";
 import EditPostModal from "@/components/PostModal/EditPostModal";
 import DeletePostModal from "@/components/PostModal/DeletePostModal";
+
+import { route } from "ziggy-js";
+
+import { useForm, usePage } from "@inertiajs/react";
 
 export default function Index({ posts }) {
     const { auth } = usePage().props;
@@ -145,10 +154,11 @@ export default function Index({ posts }) {
                                 <div className="p-8 text-center border rounded-lg">
                                     {post.description}
                                 </div>
+                                <div>{post.likes_count}</div>
                             </CardContent>
                             <CardFooter>
                                 <div className="grid w-full grid-cols-2 gap-2">
-                                    <Button variant="ghost">Like</Button>
+                                    <LikeButton post={post} />
                                     <Button variant="ghost">Comment</Button>
                                 </div>
                             </CardFooter>

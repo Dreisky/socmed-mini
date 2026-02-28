@@ -39,7 +39,7 @@ export default function Register() {
                 </h1>
 
                 <Button variant="outline">
-                    <Link href={route("user.index")}>Log in</Link>
+                    <Link href={route("login")}>Log in</Link>
                 </Button>
             </div>
 
