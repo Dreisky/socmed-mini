@@ -6,12 +6,14 @@ import { Separator } from "@/components/ui/separator";
 import { route } from "ziggy-js";
 
 export default function AddPostModal({ open, onOpenChange }) {
-    const { data, setData, post, processing, reset } = useForm({
+    const { data, setData, post, processing, errors, reset } = useForm({
         description: "",
     });
 
     const handleSubmit = () => {
         post(route("post.store"), {
+            preserveState: true,
+            preserveScroll: true,
             onSuccess: () => {
                 onOpenChange(false);
                 reset();
@@ -28,15 +30,24 @@ export default function AddPostModal({ open, onOpenChange }) {
             >
                 <div className="space-y-4">
                     <Input
-                        value={data.name}
+                        value={data.description}
                         onChange={(e) => setData("description", e.target.value)}
                         placeholder="What's on your mind?"
                     />
 
+                    {errors.description && (
+                        <p className="text-red-500 text-xs italic font-light">
+                            {errors.description}
+                        </p>
+                    )}
+
                     <div className="flex justify-end gap-2">
                         <Button
                             type="button"
-                            onClick={() => onOpenChange(false)}
+                            onClick={() => {
+                                reset();
+                                onOpenChange(false);
+                            }}
                         >
                             Cancel
                         </Button>

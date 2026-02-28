@@ -4,10 +4,10 @@ import { useForm } from "@inertiajs/react";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { route } from "ziggy-js";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 export default function EditPostModal({ open, onOpenChange, post }) {
-    const { data, setData, put, processing, reset } = useForm({
+    const { data, setData, put, processing, errors, reset } = useForm({
         description: "",
     });
 
@@ -19,6 +19,8 @@ export default function EditPostModal({ open, onOpenChange, post }) {
 
     const handleSubmit = () => {
         put(route("post.update", post), {
+            preserveState: true,
+            preserveScroll: true,
             onSuccess: () => {
                 onOpenChange(false);
                 reset();
@@ -31,7 +33,7 @@ export default function EditPostModal({ open, onOpenChange, post }) {
             <Modal
                 open={open}
                 onOpenChange={onOpenChange}
-                title={"Create Post"}
+                title={"Update Post"}
             >
                 <div className="space-y-4">
                     <Input
@@ -39,6 +41,12 @@ export default function EditPostModal({ open, onOpenChange, post }) {
                         onChange={(e) => setData("description", e.target.value)}
                         placeholder="What's on your mind?"
                     />
+
+                    {errors.description && (
+                        <p className="text-red-500 text-xs italic font-light">
+                            {errors.description}
+                        </p>
+                    )}
 
                     <div className="flex justify-end gap-2">
                         <Button

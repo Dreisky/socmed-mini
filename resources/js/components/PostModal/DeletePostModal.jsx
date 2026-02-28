@@ -31,6 +31,8 @@ export default function DeletePostModal({ open, onOpenChange, post }) {
         });
     };
 
+    console.log(post);
+
     return (
         <>
             <AlertDialog
@@ -45,7 +47,11 @@ export default function DeletePostModal({ open, onOpenChange, post }) {
                         </AlertDialogMedia>
                         <AlertDialogTitle>Delete Post?</AlertDialogTitle>
                         <AlertDialogDescription>
-                            This will permanently delete this post.
+                            This will permanently delete this{" "}
+                            <span className="font-semibold">
+                                "{post?.description}"
+                            </span>{" "}
+                            post.
                         </AlertDialogDescription>
                     </AlertDialogHeader>
                     <AlertDialogFooter>

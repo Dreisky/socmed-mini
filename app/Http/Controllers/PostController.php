@@ -9,7 +9,7 @@ class PostController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'description' => ['required'],
+            'description' => ['required', 'max:100'],
         ]);
 
         Post::create([
@@ -21,7 +21,7 @@ class PostController extends Controller
     public function update(Post $post, Request $request)
     {
         $validated = $request->validate([
-            'description' => ['required'],
+            'description' => ['required', 'max:100'],
         ]);
 
         $post->update($validated);
