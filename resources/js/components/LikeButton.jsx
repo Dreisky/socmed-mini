@@ -1,5 +1,6 @@
 import { useForm } from "@inertiajs/react";
 import { Button } from "@/components/ui/button";
+import { ThumbsUp } from "lucide-react";
 
 export default function LikeButton({ post }) {
     const { post: sendPost, processing } = useForm();
@@ -14,13 +15,12 @@ export default function LikeButton({ post }) {
 
     return (
         <>
-            <Button
-                variant="ghost"
-                onClick={toglleLike}
-                disabled={processing}
-                className={post.is_liked && "text-red-500"}
-            >
-                {post.is_liked ? "❤️" : "🤍"}
+            <Button variant="ghost" onClick={toglleLike} disabled={processing}>
+                {post.is_liked ? (
+                    <ThumbsUp fill="blue" stroke="none" />
+                ) : (
+                    <ThumbsUp />
+                )}
                 Like
             </Button>
         </>

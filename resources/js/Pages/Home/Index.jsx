@@ -24,7 +24,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
 import { useState } from "react";
 
-import { Ellipsis, Pencil, Trash } from "lucide-react";
+import { Ellipsis, Pencil, Trash, ThumbsUp } from "lucide-react";
 
 import AddPostModal from "../../components/PostModal/AddPostModal";
 import EditPostModal from "@/components/PostModal/EditPostModal";
@@ -154,7 +154,12 @@ export default function Index({ posts }) {
                                 <div className="p-8 text-center border rounded-lg">
                                     {post.description}
                                 </div>
-                                <div>{post.likes_count}</div>
+                                {post.likes_count > 0 && (
+                                    <div className="mt-4 flex items-center gap-2">
+                                        <ThumbsUp size={14} color="blue" />
+                                        {post.likes_count}
+                                    </div>
+                                )}
                             </CardContent>
                             <CardFooter>
                                 <div className="grid w-full grid-cols-2 gap-2">
