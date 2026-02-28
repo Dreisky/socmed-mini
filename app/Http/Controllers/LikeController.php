@@ -8,7 +8,7 @@ class LikeController extends Controller
 {
     public function store(Post $post)
     {
-        Like::create([
+        Like::firstOrCreate([
             'post_id' => $post->id,
             'user_id' => auth()->user()->id,
         ]);
