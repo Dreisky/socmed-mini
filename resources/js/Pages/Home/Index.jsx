@@ -29,6 +29,7 @@ import { Ellipsis, Pencil, Trash, ThumbsUp } from "lucide-react";
 import AddPostModal from "../../components/PostModal/AddPostModal";
 import EditPostModal from "@/components/PostModal/EditPostModal";
 import DeletePostModal from "@/components/PostModal/DeletePostModal";
+import ShowCommentModal from "@/components/CommentModal/ShowCommentModal";
 
 import { route } from "ziggy-js";
 
@@ -42,6 +43,7 @@ export default function Index({ posts }) {
     const [addPostModalOpen, setAddPostModalOpen] = useState(false);
     const [editPostModalOpen, setEditPostModalOpen] = useState(false);
     const [deletePostModalOpen, setDeletePostModalOpen] = useState(false);
+    const [showCommentModalOpen, setShowCommentModalOpen] = useState(false);
 
     return (
         <>
@@ -164,7 +166,15 @@ export default function Index({ posts }) {
                             <CardFooter>
                                 <div className="grid w-full grid-cols-2 gap-2">
                                     <LikeButton post={post} />
-                                    <Button variant="ghost">Comment</Button>
+                                    <Button
+                                        variant="ghost"
+                                        onClick={() => {
+                                            setActivePost(post);
+                                            setShowCommentModalOpen(true);
+                                        }}
+                                    >
+                                        Comment
+                                    </Button>
                                 </div>
                             </CardFooter>
                         </Card>
@@ -188,6 +198,12 @@ export default function Index({ posts }) {
                 post={activePost}
                 open={deletePostModalOpen}
                 onOpenChange={setDeletePostModalOpen}
+            />
+
+            <ShowCommentModal
+                post={activePost}
+                open={showCommentModalOpen}
+                onOpenChange={setShowCommentModalOpen}
             />
         </>
     );

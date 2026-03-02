@@ -11,7 +11,9 @@ export default function Modal({ open, onOpenChange, title, children }) {
         <Dialog open={open} onOpenChange={onOpenChange}>
             <DialogContent>
                 <DialogHeader>
-                    <DialogTitle>{title}</DialogTitle>
+                    <DialogTitle className="capitalize text-center">
+                        {title}
+                    </DialogTitle>
                 </DialogHeader>
                 <Separator />
                 {children}
