@@ -200,11 +200,13 @@ export default function Index({ posts }) {
                 onOpenChange={setDeletePostModalOpen}
             />
 
-            <ShowCommentModal
-                post={activePost}
-                open={showCommentModalOpen}
-                onOpenChange={setShowCommentModalOpen}
-            />
+            {activePost && (
+                <ShowCommentModal
+                    post={activePost}
+                    open={showCommentModalOpen}
+                    onOpenChange={setShowCommentModalOpen}
+                />
+            )}
         </>
     );
 }
