@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CommentController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LikeController;
 use App\Http\Controllers\PostController;
@@ -23,5 +24,7 @@ Route::middleware(['auth'])->group(function () {
     Route::delete('/post/{post}', [PostController::class, 'destroy'])->name('post.delete');
 
     Route::post('/like/{post}', [LikeController::class, 'store'])->name('like.store');
+
+    Route::post('/comment', [CommentController::class, 'store'])->name('comment.store');
 
 });

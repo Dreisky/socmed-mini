@@ -22,9 +22,9 @@ import {
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
-import { Ellipsis, Pencil, Trash, ThumbsUp } from "lucide-react";
+import { Ellipsis, Pencil, Trash, ThumbsUp, MessageCircle } from "lucide-react";
 
 import AddPostModal from "../../components/PostModal/AddPostModal";
 import EditPostModal from "@/components/PostModal/EditPostModal";
@@ -44,6 +44,16 @@ export default function Index({ posts }) {
     const [editPostModalOpen, setEditPostModalOpen] = useState(false);
     const [deletePostModalOpen, setDeletePostModalOpen] = useState(false);
     const [showCommentModalOpen, setShowCommentModalOpen] = useState(false);
+
+    useEffect(() => {
+        if (activePost) {
+            const updatedPost = posts.find((p) => p.id === activePost.id);
+
+            if (updatedPost) {
+                setActivePost(updatedPost);
+            }
+        }
+    }, [posts]);
 
     return (
         <>
@@ -173,6 +183,7 @@ export default function Index({ posts }) {
                                             setShowCommentModalOpen(true);
                                         }}
                                     >
+                                        <MessageCircle />
                                         Comment
                                     </Button>
                                 </div>

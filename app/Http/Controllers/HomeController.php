@@ -10,7 +10,7 @@ class HomeController extends Controller
         $userId = auth()->id(); // safe reference
 
         return inertia('Home/Index', [
-            'posts' => Post::with('user', 'likes')
+            'posts' => Post::with('user', 'likes', 'comments.user')
                 ->latest()
                 ->get()
                 ->map(function ($post) use ($userId) {
@@ -20,9 +20,10 @@ class HomeController extends Controller
                         'created_at'  => $post->created_at,
                         'user'        => $post->user,
 
+                        'comments'    => $post->comments,
+
                         'likes_count' => $post->likes->count(),
 
-                        // ✅ SAFE
                         'is_liked'    => $userId
                             ? $post->likes->contains('user_id', $userId)
                             : false,

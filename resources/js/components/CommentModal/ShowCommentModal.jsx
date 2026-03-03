@@ -1,4 +1,5 @@
 import Modal from "@/components/Modal";
+import AddCommentModal from "@/components/CommentModal/AddCommentModal";
 import { Input } from "@/components/ui/input";
 import { useForm, usePage } from "@inertiajs/react";
 import { Button } from "@/components/ui/button";
@@ -6,9 +7,24 @@ import { Separator } from "@/components/ui/separator";
 import { route } from "ziggy-js";
 import { useEffect, useState } from "react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import {
+    Card,
+    CardAction,
+    CardContent,
+    CardDescription,
+    CardFooter,
+    CardHeader,
+    CardTitle,
+} from "@/components/ui/card";
 
 export default function ShowCommentModal({ open, onOpenChange, post }) {
     const { auth } = usePage().props;
+
+    const [comments, setComments] = useState(post?.comments || []);
+
+    useEffect(() => {
+        setComments(post?.comments || []);
+    }, [post]);
 
     return (
         <>
@@ -58,17 +74,34 @@ export default function ShowCommentModal({ open, onOpenChange, post }) {
                             {post?.description}
                         </div>
 
-                        {/* Comments list could go here */}
+                        {/* Comments here */}
+                        <p className="opacity-50 text-sm italic">Comments:</p>
+                        <div>
+                            {comments.map((comment) => (
+                                <div key={comment.id} className="flex gap-2">
+                                    <Avatar className="h-8 w-8">
+                                        <AvatarImage
+                                            src="https://github.com/shadcn.png"
+                                            alt="@shadcn"
+                                            className="grayscale"
+                                        />
+                                        <AvatarFallback>CN</AvatarFallback>
+                                    </Avatar>
+                                    <Card className="w-full p-2">
+                                        <CardContent className="px-2 text-sm">
+                                            <p className="font-semibold">
+                                                {comment.user?.username}
+                                            </p>
+                                            <p>{comment.comment}</p>
+                                        </CardContent>
+                                    </Card>
+                                </div>
+                            ))}
+                        </div>
                     </div>
 
                     {/* Footer */}
-                    <div className="border-t p-2 flex gap-2 items-center">
-                        <Input
-                            placeholder="Write a comment..."
-                            className="flex-1"
-                        />
-                        <Button>Send</Button>
-                    </div>
+                    <AddCommentModal post={post} />
                 </div>
             </Modal>
         </>
