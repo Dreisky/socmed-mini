@@ -20,7 +20,10 @@ export default function Register() {
         email: "",
         gender: "",
         password: "",
+        profile_picture: null,
     });
+
+    console.log(data);
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -51,8 +54,27 @@ export default function Register() {
                                 Sign up
                             </FieldLabel>
                         </Field>
-                        <form onSubmit={handleSubmit}>
+                        <form
+                            onSubmit={handleSubmit}
+                            enctype="multipart/form-data"
+                        >
                             <FieldGroup>
+                                <Field>
+                                    <FieldLabel htmlFor="picture">
+                                        Profile Picture
+                                    </FieldLabel>
+                                    <Input
+                                        onChange={(e) =>
+                                            setData(
+                                                "profile_picture",
+                                                e.target.files[0],
+                                            )
+                                        }
+                                        id="picture"
+                                        type="file"
+                                    />
+                                </Field>
+
                                 <Field>
                                     <FieldLabel htmlFor="name">
                                         Username
@@ -98,11 +120,11 @@ export default function Register() {
                                 </Field>
 
                                 <Field>
-                                    <FieldLabel htmlFor="name">
+                                    <FieldLabel htmlFor="email">
                                         Email
                                     </FieldLabel>
                                     <Input
-                                        id="name"
+                                        id="email"
                                         value={data.email}
                                         onChange={(e) =>
                                             setData("email", e.target.value)
@@ -124,7 +146,7 @@ export default function Register() {
                                             setData("password", e.target.value)
                                         }
                                         className="py-6 px-4"
-                                        placeholder="••••••••"
+                                        placeholder="######"
                                     />
                                 </Field>
 

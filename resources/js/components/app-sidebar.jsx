@@ -19,16 +19,18 @@ import {
     DropdownMenuSeparator,
 } from "@/components/ui/dropdown-menu";
 import { Button } from "@/components/ui/button";
-import { UserIcon } from "lucide-react";
-import { CreditCardIcon } from "lucide-react";
-import { SettingsIcon } from "lucide-react";
-import { LogOutIcon } from "lucide-react";
-import { Codesandbox } from "lucide-react";
+import {
+    SettingsIcon,
+    LogOutIcon,
+    UserIcon,
+    MessageSquareDot,
+    Home,
+    Users,
+    EllipsisVertical,
+    MessageCircleMore,
+} from "lucide-react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { MessageSquareDot } from "lucide-react";
-import { EllipsisVertical } from "lucide-react";
 import { Link, useForm, usePage } from "@inertiajs/react";
-import { Home, Users, FileText } from "lucide-react";
 import { route } from "ziggy-js";
 
 export function AppSidebar() {
@@ -47,9 +49,13 @@ export function AppSidebar() {
             <SidebarHeader className="flex items-center justify-center px-4 py-6 border-b">
                 <Avatar className="w-28 h-28">
                     <AvatarImage
-                        src="https://github.com/shadcn.png"
+                        // src="https://github.com/shadcn.png"
+                        src={
+                            auth.user.profile_picture
+                                ? `/storage/${auth.user.profile_picture}`
+                                : "https://github.com/shadcn.png"
+                        }
                         alt="@shadcn"
-                        className="grayscale"
                     />
                     <AvatarFallback>CN</AvatarFallback>
                 </Avatar>
@@ -77,8 +83,8 @@ export function AppSidebar() {
                                     )}
                                 >
                                     <Link href="/">
-                                        <Home className="w-4 h-4 mr-2" />
-                                        Dashboard
+                                        <Home className=" mr-2" />
+                                        Home
                                     </Link>
                                 </SidebarMenuButton>
                             </SidebarMenuItem>
@@ -89,8 +95,8 @@ export function AppSidebar() {
                                     isActive={url.startsWith("/clients")}
                                 >
                                     <Link href="/clients">
-                                        <Users className="w-4 h-4 mr-2" />
-                                        Clients
+                                        <Users className=" mr-2" />
+                                        Friends
                                     </Link>
                                 </SidebarMenuButton>
                             </SidebarMenuItem>
@@ -98,8 +104,8 @@ export function AppSidebar() {
                             <SidebarMenuItem>
                                 <SidebarMenuButton asChild>
                                     <Link href="/reports">
-                                        <FileText className="w-4 h-4 mr-2" />
-                                        Reports
+                                        <MessageCircleMore className="mr-2" />
+                                        Messages
                                     </Link>
                                 </SidebarMenuButton>
                             </SidebarMenuItem>
@@ -107,7 +113,7 @@ export function AppSidebar() {
                     </SidebarGroupContent>
                 </SidebarGroup>
 
-                <SidebarGroup>
+                {/* <SidebarGroup>
                     <SidebarGroupLabel>Budget</SidebarGroupLabel>
 
                     <SidebarGroupContent>
@@ -125,7 +131,7 @@ export function AppSidebar() {
                             </SidebarMenuItem>
                         </SidebarMenu>
                     </SidebarGroupContent>
-                </SidebarGroup>
+                </SidebarGroup> */}
             </SidebarContent>
 
             <SidebarFooter>
@@ -135,15 +141,21 @@ export function AppSidebar() {
                             <div className="flex items-center gap-2">
                                 <Avatar className="rounded-md">
                                     <AvatarImage
-                                        src="https://github.com/shadcn.png"
+                                        src={
+                                            auth.user.profile_picture
+                                                ? `/storage/${auth.user.profile_picture}`
+                                                : "https://github.com/shadcn.png"
+                                        }
                                         className="grayscale"
                                     />
                                     <AvatarFallback>CN</AvatarFallback>
                                 </Avatar>
                                 <div className="flex flex-col justify-center leading-4">
-                                    <p className="m-0 font-semibold">shadCn</p>
+                                    <p className="m-0 font-semibold">
+                                        {auth.user.username}
+                                    </p>
                                     <p className="m-0 text-xs opacity-50">
-                                        scn@example.com
+                                        {auth.user.email}
                                     </p>
                                 </div>
                             </div>
@@ -158,13 +170,21 @@ export function AppSidebar() {
                     <DropdownMenuContent side="right" className="mb-2 w-60">
                         <DropdownMenuItem>
                             <Avatar className="rounded-md">
-                                <AvatarImage src="https://github.com/shadcn.png" />
+                                <AvatarImage
+                                    src={
+                                        auth.user.profile_picture
+                                            ? `/storage/${auth.user.profile_picture}`
+                                            : "https://github.com/shadcn.png"
+                                    }
+                                />
                                 <AvatarFallback>CN</AvatarFallback>
                             </Avatar>
                             <div className="flex flex-col justify-center">
-                                <p className="font-semibold">shadCn</p>
+                                <p className="font-semibold">
+                                    {auth.user.username}
+                                </p>
                                 <p className="text-xs opacity-50">
-                                    scn@example.com
+                                    {auth.user.email}
                                 </p>
                             </div>
                         </DropdownMenuItem>

@@ -44,14 +44,17 @@ export default function ShowCommentModal({ open, onOpenChange, post }) {
                         <div className="flex items-center gap-2">
                             <Avatar className="h-10 w-10">
                                 <AvatarImage
-                                    src="https://github.com/shadcn.png"
+                                    src={
+                                        post.user.profile_picture
+                                            ? `/storage/${post.user.profile_picture}`
+                                            : "https://github.com/shadcn.png"
+                                    }
                                     alt="@shadcn"
-                                    className="grayscale"
                                 />
                                 <AvatarFallback>CN</AvatarFallback>
                             </Avatar>
                             <div>
-                                <p className="font-semibold text-md">
+                                <p className="font-semibold text-md capitalize">
                                     {post?.user?.username}
                                 </p>
                                 <p className="text-xs italic font-light">
@@ -76,25 +79,43 @@ export default function ShowCommentModal({ open, onOpenChange, post }) {
 
                         {/* Comments here */}
                         <p className="opacity-50 text-sm italic">Comments:</p>
-                        <div>
+                        <div className="flex flex-col gap-2">
                             {comments.map((comment) => (
                                 <div key={comment.id} className="flex gap-2">
                                     <Avatar className="h-8 w-8">
                                         <AvatarImage
-                                            src="https://github.com/shadcn.png"
+                                            src={
+                                                comment.user.profile_picture
+                                                    ? `/storage/${comment.user.profile_picture}`
+                                                    : "https://github.com/shadcn.png"
+                                            }
                                             alt="@shadcn"
-                                            className="grayscale"
                                         />
                                         <AvatarFallback>CN</AvatarFallback>
                                     </Avatar>
-                                    <Card className="w-full p-2">
-                                        <CardContent className="px-2 text-sm">
-                                            <p className="font-semibold">
-                                                {comment.user?.username}
-                                            </p>
-                                            <p>{comment.comment}</p>
-                                        </CardContent>
-                                    </Card>
+                                    <div className="w-full">
+                                        <Card className="w-full p-2">
+                                            <CardContent className="px-2 text-sm">
+                                                <p className="font-semibold capitalize">
+                                                    {comment.user?.username}
+                                                </p>
+                                                <p>{comment.comment}</p>
+                                            </CardContent>
+                                        </Card>
+                                        <p className="text-xs italic font-light my-2">
+                                            {post?.created_at &&
+                                                new Date(
+                                                    comment.created_at,
+                                                ).toLocaleString("en-US", {
+                                                    year: "numeric",
+                                                    month: "long",
+                                                    day: "numeric",
+                                                    hour: "numeric",
+                                                    minute: "2-digit",
+                                                    hour12: true,
+                                                })}
+                                        </p>
+                                    </div>
                                 </div>
                             ))}
                         </div>

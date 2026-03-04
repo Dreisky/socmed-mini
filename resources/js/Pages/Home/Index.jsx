@@ -63,9 +63,12 @@ export default function Index({ posts }) {
                         <CardContent className="flex items-center gap-2">
                             <Avatar className="h-10 w-10">
                                 <AvatarImage
-                                    src="https://github.com/shadcn.png"
+                                    src={
+                                        auth.user.profile_picture
+                                            ? `/storage/${auth.user.profile_picture}`
+                                            : "https://github.com/shadcn.png"
+                                    }
                                     alt="@shadcn"
-                                    className="grayscale"
                                 />
                                 <AvatarFallback>CN</AvatarFallback>
                             </Avatar>
@@ -91,9 +94,12 @@ export default function Index({ posts }) {
                                     <div className="flex items-center gap-2">
                                         <Avatar className="w-10 h-10">
                                             <AvatarImage
-                                                src="https://github.com/shadcn.png"
+                                                src={
+                                                    post.user.profile_picture
+                                                        ? `/storage/${post.user.profile_picture}`
+                                                        : "https://github.com/shadcn.png"
+                                                }
                                                 alt="@shadcn"
-                                                className="grayscale"
                                             />
                                             <AvatarFallback>CN</AvatarFallback>
                                         </Avatar>

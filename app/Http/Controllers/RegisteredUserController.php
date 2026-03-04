@@ -14,13 +14,20 @@ class RegisteredUserController extends Controller
     public function store(Request $request)
     {
         $attributes = $request->validate([
-            'username' => ['required', 'min:3'],
-            'email'    => ['required', 'email'],
-            'gender'   => ['required'],
-            'password' => ['required'],
+            'username'        => ['required', 'min:3'],
+            'email'           => ['required', 'email'],
+            'gender'          => ['required'],
+            'password'        => ['required'],
+            'profile_picture' => ['nullable'],
         ]);
 
-        $user = User::Create($attributes);
+        if ($request->hasFile('profile_picture')) {
+            $attributes['profile_picture'] =
+            $request->file('profile_picture')
+                ->store('profiles', 'public');
+        }
+
+        User::Create($attributes);
 
         // Auth::login($user);
 

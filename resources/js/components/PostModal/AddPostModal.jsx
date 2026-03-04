@@ -56,7 +56,7 @@ export default function AddPostModal({ open, onOpenChange }) {
                             disabled={processing}
                             onClick={handleSubmit}
                         >
-                            Save
+                            Post
                         </Button>
                     </div>
                 </div>
