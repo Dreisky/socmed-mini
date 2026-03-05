@@ -169,15 +169,49 @@ export default function Index({ posts }) {
                                 </div>
                             </CardHeader>
                             <CardContent>
-                                <div className="p-8 text-center border rounded-lg">
-                                    {post.description}
-                                </div>
-                                {post.likes_count > 0 && (
-                                    <div className="mt-4 flex items-center gap-2">
-                                        <ThumbsUp size={14} color="blue" />
-                                        {post.likes_count}
+                                <div className="border rounded-lg">
+                                    <div className="p-4 text-justify">
+                                        <p>{post.description}</p>
                                     </div>
-                                )}
+                                    <div>
+                                        {post.post_photo && (
+                                            <img
+                                                src={`/storage/${post.post_photo}`}
+                                                alt=""
+                                                className="mx-auto max-h-[400px] max-w-full object-contain"
+                                            />
+                                        )}
+                                    </div>
+                                </div>
+                                <div className="flex items-center justify-between">
+                                    <div className="mt-4 flex items-center gap-2">
+                                        {post.likes_count > 0 && (
+                                            <>
+                                                <ThumbsUp
+                                                    size={14}
+                                                    color="blue"
+                                                />
+                                                {post.likes_count}
+                                            </>
+                                        )}
+                                    </div>
+
+                                    <div className="mt-4 flex items-center gap-2">
+                                        {post.comments_count > 0 && (
+                                            <p
+                                                className="cursor-pointer hover:underline"
+                                                onClick={() => {
+                                                    setActivePost(post);
+                                                    setShowCommentModalOpen(
+                                                        true,
+                                                    );
+                                                }}
+                                            >
+                                                {post.comments_count} comments
+                                            </p>
+                                        )}
+                                    </div>
+                                </div>
                             </CardContent>
                             <CardFooter>
                                 <div className="grid w-full grid-cols-2 gap-2">

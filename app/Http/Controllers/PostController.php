@@ -10,11 +10,19 @@ class PostController extends Controller
     {
         $validated = $request->validate([
             'description' => ['required', 'max:100'],
+            'post_photo'  => ['nullable', 'image'],
         ]);
+
+        if ($request->hasFile('post_photo')) {
+            $validated['post_photo'] =
+            $request->file('post_photo')
+                ->store('photos', 'public');
+        }
 
         Post::create([
             'user_id'     => auth()->user()->id,
             'description' => $validated['description'],
+            'post_photo'  => $validated['post_photo'],
         ]);
     }
 

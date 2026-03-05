@@ -73,8 +73,19 @@ export default function ShowCommentModal({ open, onOpenChange, post }) {
                             </div>
                         </div>
 
-                        <div className="p-4 border rounded-md">
-                            {post?.description}
+                        <div className="border rounded-lg">
+                            <div className="p-4 text-justify">
+                                <p>{post.description}</p>
+                            </div>
+                            <div>
+                                {post.post_photo && (
+                                    <img
+                                        src={`/storage/${post.post_photo}`}
+                                        alt=""
+                                        className="mx-auto max-h-[400px] max-w-full object-contain"
+                                    />
+                                )}
+                            </div>
                         </div>
 
                         {/* Comments here */}

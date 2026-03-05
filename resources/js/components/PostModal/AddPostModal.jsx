@@ -4,10 +4,21 @@ import { useForm } from "@inertiajs/react";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { route } from "ziggy-js";
+import { Textarea } from "@/components/ui/textarea";
+import {
+    Field,
+    FieldDescription,
+    FieldGroup,
+    FieldLabel,
+    FieldLegend,
+    FieldSeparator,
+    FieldSet,
+} from "@/components/ui/field";
 
 export default function AddPostModal({ open, onOpenChange }) {
     const { data, setData, post, processing, errors, reset } = useForm({
         description: "",
+        post_photo: null,
     });
 
     const handleSubmit = () => {
@@ -29,7 +40,8 @@ export default function AddPostModal({ open, onOpenChange }) {
                 title={"Create Post"}
             >
                 <div className="space-y-4">
-                    <Input
+                    <Textarea
+                        className="h-24"
                         value={data.description}
                         onChange={(e) => setData("description", e.target.value)}
                         placeholder="What's on your mind?"
@@ -40,6 +52,17 @@ export default function AddPostModal({ open, onOpenChange }) {
                             {errors.description}
                         </p>
                     )}
+
+                    <Field>
+                        <FieldLabel htmlFor="photo">Photo:</FieldLabel>
+                        <Input
+                            type="file"
+                            onChange={(e) =>
+                                setData("post_photo", e.target.files[0])
+                            }
+                            id="photo"
+                        />
+                    </Field>
 
                     <div className="flex justify-end gap-2">
                         <Button

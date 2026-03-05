@@ -15,16 +15,18 @@ class HomeController extends Controller
                 ->get()
                 ->map(function ($post) use ($userId) {
                     return [
-                        'id'          => $post->id,
-                        'description' => $post->description,
-                        'created_at'  => $post->created_at,
-                        'user'        => $post->user,
+                        'id'             => $post->id,
+                        'description'    => $post->description,
+                        'created_at'     => $post->created_at,
+                        'user'           => $post->user,
+                        'post_photo'     => $post->post_photo,
 
-                        'comments'    => $post->comments,
+                        'comments'       => $post->comments,
+                        'comments_count' => $post->comments->count(),
 
-                        'likes_count' => $post->likes->count(),
+                        'likes_count'    => $post->likes->count(),
 
-                        'is_liked'    => $userId
+                        'is_liked'       => $userId
                             ? $post->likes->contains('user_id', $userId)
                             : false,
                     ];
