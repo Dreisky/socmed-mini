@@ -63,6 +63,7 @@ export default function Index({ posts }) {
                         <CardContent className="flex items-center gap-2">
                             <Avatar className="h-10 w-10">
                                 <AvatarImage
+                                    className="object-cover"
                                     src={
                                         auth.user.profile_picture
                                             ? `/storage/${auth.user.profile_picture}`
@@ -94,6 +95,7 @@ export default function Index({ posts }) {
                                     <div className="flex items-center gap-2">
                                         <Avatar className="w-10 h-10">
                                             <AvatarImage
+                                                className="object-cover"
                                                 src={
                                                     post.user.profile_picture
                                                         ? `/storage/${post.user.profile_picture}`

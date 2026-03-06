@@ -50,6 +50,7 @@ export function AppSidebar() {
                 <Avatar className="w-28 h-28">
                     <AvatarImage
                         // src="https://github.com/shadcn.png"
+                        className="object-cover"
                         src={
                             auth.user.profile_picture
                                 ? `/storage/${auth.user.profile_picture}`
@@ -139,14 +140,14 @@ export function AppSidebar() {
                     <DropdownMenuTrigger asChild>
                         <div className="flex items-center justify-between p-2 rounded-sm hover:bg-muted">
                             <div className="flex items-center gap-2">
-                                <Avatar className="rounded-md">
+                                <Avatar className="rounded-md w-8 h-8">
                                     <AvatarImage
                                         src={
                                             auth.user.profile_picture
                                                 ? `/storage/${auth.user.profile_picture}`
                                                 : "https://github.com/shadcn.png"
                                         }
-                                        className="grayscale"
+                                        className="grayscale object-cover"
                                     />
                                     <AvatarFallback>CN</AvatarFallback>
                                 </Avatar>
@@ -169,8 +170,9 @@ export function AppSidebar() {
                     </DropdownMenuTrigger>
                     <DropdownMenuContent side="right" className="mb-2 w-60">
                         <DropdownMenuItem>
-                            <Avatar className="rounded-md">
+                            <Avatar className="rounded-md w-8 h-8">
                                 <AvatarImage
+                                    className="object-cover"
                                     src={
                                         auth.user.profile_picture
                                             ? `/storage/${auth.user.profile_picture}`

@@ -1,5 +1,7 @@
+import { useRef, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import { Field, FieldGroup, FieldLabel } from "@/components/ui/field";
 import { Link } from "@inertiajs/react";
 import { route } from "ziggy-js";
@@ -15,6 +17,10 @@ import {
 } from "@/components/ui/select";
 
 export default function Register() {
+    const fileInputRef = useRef(null);
+
+    const [preview, setPreview] = useState(null);
+
     const { data, setData, post, processing, reset } = useForm({
         username: "",
         email: "",
@@ -28,6 +34,7 @@ export default function Register() {
     const handleSubmit = (e) => {
         e.preventDefault();
         post(route("user.store"), {
+            forceFormData: true,
             onSuccess: () => reset(),
         });
     };
@@ -56,23 +63,50 @@ export default function Register() {
                         </Field>
                         <form
                             onSubmit={handleSubmit}
-                            enctype="multipart/form-data"
+                            encType="multipart/form-data"
                         >
+                            {preview && (
+                                <div className="flex justify-center">
+                                    <Avatar className="rounded-full h-40 w-40">
+                                        <AvatarImage
+                                            src={preview}
+                                            className="object-cover"
+                                        />
+                                        <AvatarFallback>CN</AvatarFallback>
+                                    </Avatar>
+                                </div>
+                            )}
                             <FieldGroup>
                                 <Field>
                                     <FieldLabel htmlFor="picture">
                                         Profile Picture
                                     </FieldLabel>
                                     <Input
-                                        onChange={(e) =>
+                                        type="file"
+                                        ref={fileInputRef}
+                                        className="hidden"
+                                        accept="image/*"
+                                        onChange={(e) => {
+                                            const file = e.target.files[0];
+                                            if (file) {
+                                                setPreview(
+                                                    URL.createObjectURL(file),
+                                                );
+                                            }
                                             setData(
                                                 "profile_picture",
                                                 e.target.files[0],
-                                            )
-                                        }
-                                        id="picture"
-                                        type="file"
+                                            );
+                                        }}
                                     />
+                                    <Button
+                                        type="button"
+                                        onClick={() =>
+                                            fileInputRef.current.click()
+                                        }
+                                    >
+                                        Select Photo
+                                    </Button>
                                 </Field>
 
                                 <Field>

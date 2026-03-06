@@ -44,6 +44,7 @@ export default function ShowCommentModal({ open, onOpenChange, post }) {
                         <div className="flex items-center gap-2">
                             <Avatar className="h-10 w-10">
                                 <AvatarImage
+                                    className="object-cover"
                                     src={
                                         post.user.profile_picture
                                             ? `/storage/${post.user.profile_picture}`
@@ -95,6 +96,7 @@ export default function ShowCommentModal({ open, onOpenChange, post }) {
                                 <div key={comment.id} className="flex gap-2">
                                     <Avatar className="h-8 w-8">
                                         <AvatarImage
+                                            className="object-cover"
                                             src={
                                                 comment.user.profile_picture
                                                     ? `/storage/${comment.user.profile_picture}`
