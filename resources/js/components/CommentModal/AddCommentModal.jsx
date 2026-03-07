@@ -45,7 +45,7 @@ export default function AddCommentModal({ post }) {
                         placeholder="Write a comment..."
                         className="flex-1"
                     />
-                    <Button>Send</Button>
+                    <Button disabled={processing}>Send</Button>
                 </div>
             </form>
         </>
