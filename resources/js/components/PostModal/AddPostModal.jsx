@@ -2,7 +2,6 @@ import Modal from "@/components/Modal";
 import { Input } from "@/components/ui/input";
 import { useForm } from "@inertiajs/react";
 import { Button } from "@/components/ui/button";
-import { Separator } from "@/components/ui/separator";
 import { route } from "ziggy-js";
 import { Textarea } from "@/components/ui/textarea";
 import {
@@ -14,8 +13,14 @@ import {
     FieldSeparator,
     FieldSet,
 } from "@/components/ui/field";
+import { useRef, useState } from "react";
+import { Image } from "lucide-react";
 
 export default function AddPostModal({ open, onOpenChange }) {
+    const fileInputRef = useRef(null);
+
+    const [preview, setPreview] = useState(null);
+
     const { data, setData, post, processing, errors, reset } = useForm({
         description: "",
         post_photo: null,
@@ -23,6 +28,7 @@ export default function AddPostModal({ open, onOpenChange }) {
 
     const handleSubmit = () => {
         post(route("post.store"), {
+            forceFormData: true,
             preserveState: true,
             preserveScroll: true,
             onSuccess: () => {
@@ -39,7 +45,7 @@ export default function AddPostModal({ open, onOpenChange }) {
                 onOpenChange={onOpenChange}
                 title={"Create Post"}
             >
-                <div className="space-y-4">
+                <div className="space-y-4 max-h-[350px] overflow-y-auto">
                     <Textarea
                         className="h-24"
                         value={data.description}
@@ -53,15 +59,55 @@ export default function AddPostModal({ open, onOpenChange }) {
                         </p>
                     )}
 
+                    {preview && (
+                        <div className="flex justify-center">
+                            <div className="relative">
+                                <img
+                                    src={preview}
+                                    className="rounded-md"
+                                    alt=""
+                                />
+
+                                <div className="absolute top-2 right-2">
+                                    <Button
+                                        variant="outline"
+                                        type="button"
+                                        onClick={() => {
+                                            setPreview(null);
+                                            setData("post_photo", null);
+                                            fileInputRef.current.value = null;
+                                        }}
+                                    >
+                                        X
+                                    </Button>
+                                </div>
+                            </div>
+                        </div>
+                    )}
+
                     <Field>
-                        <FieldLabel htmlFor="photo">Photo:</FieldLabel>
                         <Input
                             type="file"
-                            onChange={(e) =>
-                                setData("post_photo", e.target.files[0])
-                            }
-                            id="photo"
+                            ref={fileInputRef}
+                            className="hidden"
+                            accept="image/*"
+                            onChange={(e) => {
+                                const file = e.target.files[0];
+                                if (file) {
+                                    setPreview(URL.createObjectURL(file));
+                                }
+                                setData("post_photo", e.target.files[0]);
+                            }}
                         />
+                        <div className="flex justify-end">
+                            <Button
+                                variant="outline"
+                                type="button"
+                                onClick={() => fileInputRef.current.click()}
+                            >
+                                <Image />
+                            </Button>
+                        </div>
                     </Field>
 
                     <div className="flex justify-end gap-2">
