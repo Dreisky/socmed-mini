@@ -10,7 +10,6 @@ import {
     SidebarMenuItem,
     SidebarMenuButton,
 } from "@/components/ui/sidebar";
-import { Separator } from "@/components/ui/separator";
 import {
     DropdownMenu,
     DropdownMenuTrigger,
@@ -79,11 +78,9 @@ export function AppSidebar() {
                             <SidebarMenuItem>
                                 <SidebarMenuButton
                                     asChild
-                                    isActive={route().current(
-                                        "client.dashboard",
-                                    )}
+                                    isActive={route().current("home.index")}
                                 >
-                                    <Link href="/">
+                                    <Link href={route("home.index")}>
                                         <Home className=" mr-2" />
                                         Home
                                     </Link>
@@ -195,7 +192,7 @@ export function AppSidebar() {
 
                         <DropdownMenuItem>
                             <UserIcon />
-                            Profile
+                            <Link href={route("profile.index")}>Profile</Link>
                         </DropdownMenuItem>
                         <DropdownMenuItem>
                             <SettingsIcon />

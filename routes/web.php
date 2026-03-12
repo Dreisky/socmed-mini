@@ -4,6 +4,7 @@ use App\Http\Controllers\CommentController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LikeController;
 use App\Http\Controllers\PostController;
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RegisteredUserController;
 use App\Http\Controllers\SessionController;
 use Illuminate\Support\Facades\Route;
@@ -27,4 +28,5 @@ Route::middleware(['auth'])->group(function () {
 
     Route::post('/comment', [CommentController::class, 'store'])->name('comment.store');
 
+    Route::get('/profile', [ProfileController::class, 'index'])->name('profile.index');
 });
