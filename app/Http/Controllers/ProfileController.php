@@ -1,10 +1,14 @@
 <?php
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Auth;
+
 class ProfileController extends Controller
 {
     public function index()
     {
-        return inertia('Home/Profile');
+        return inertia('Home/Profile', [
+            'user' => Auth::user(),
+        ]);
     }
 }
