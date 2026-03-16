@@ -11,6 +11,7 @@ import {
     InputGroupInput,
 } from "@/components/ui/input-group";
 import { Search } from "lucide-react";
+import { Toaster } from "sonner";
 // import ThemeToggle from "@/components/theme-toggle";
 
 export default function Layout({ children, header }) {
@@ -45,7 +46,10 @@ export default function Layout({ children, header }) {
                     </div>
                 </header>
 
-                <main className="flex-1 p-6 w-full">{children}</main>
+                <main className="flex-1 p-6 w-full">
+                    {children}
+                    <Toaster position="top-right" richColors />
+                </main>
             </SidebarInset>
         </SidebarProvider>
     );

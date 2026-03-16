@@ -15,13 +15,13 @@ class SessionController extends Controller
     public function store(Request $request)
     {
         $attributes = $request->validate([
-            'username' => ['required'],
+            'email'    => ['required', 'email'],
             'password' => ['required'],
         ]);
 
         if (! Auth::attempt($attributes)) {
             throw ValidationException::withMessages([
-                'username' => 'Sorry, those credentials do not match.',
+                'email' => 'Sorry, those credentials do not match.',
             ]);
         }
 

@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Field, FieldLabel } from "@/components/ui/field";
 import { useForm } from "@inertiajs/react";
 import { route } from "ziggy-js";
+import { toast } from "sonner";
 
 export default function ProfileInfo({ user }) {
     const { data, setData, put, processing, errors } = useForm({
@@ -15,6 +16,12 @@ export default function ProfileInfo({ user }) {
         e.preventDefault();
         put(route("profile.update"), {
             preserveScroll: true,
+            onSuccess: () => {
+                toast.success("Information updated!");
+            },
+            onError: () => {
+                toast.error("Error");
+            },
         });
     };
 

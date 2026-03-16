@@ -7,7 +7,7 @@ import { route } from "ziggy-js";
 
 export default function Login() {
     const { data, setData, post, processing, errors, reset } = useForm({
-        username: "",
+        email: "",
         password: "",
     });
 
@@ -62,21 +62,19 @@ export default function Login() {
                     <form onSubmit={handleSubmit}>
                         <FieldGroup>
                             <Field>
-                                <FieldLabel htmlFor="username">
-                                    Username
-                                </FieldLabel>
+                                <FieldLabel htmlFor="email">Email</FieldLabel>
                                 <Input
-                                    id="username"
-                                    value={data.username}
+                                    id="email"
+                                    value={data.email}
                                     onChange={(e) =>
-                                        setData("username", e.target.value)
+                                        setData("email", e.target.value)
                                     }
                                     className="text-lg py-6 px-4"
-                                    placeholder="John Smith"
+                                    placeholder="johnsmith@gmail.com"
                                 />
-                                {errors.username && (
+                                {errors.email && (
                                     <p className="text-red-500 text-xs italic">
-                                        {errors.username}
+                                        {errors.email}
                                     </p>
                                 )}
                             </Field>

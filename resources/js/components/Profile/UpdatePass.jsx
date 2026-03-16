@@ -3,6 +3,7 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Field, FieldLabel } from "@/components/ui/field";
 import { useForm } from "@inertiajs/react";
+import { toast } from "sonner";
 
 export default function UpdatePass({ user }) {
     const { data, setData, put, processing, errors, reset } = useForm({
@@ -18,6 +19,7 @@ export default function UpdatePass({ user }) {
             preserveScroll: true,
             onSuccess: () => {
                 reset();
+                toast.success("Password updated!");
             },
         });
     };
