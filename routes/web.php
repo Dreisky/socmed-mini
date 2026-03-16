@@ -29,5 +29,6 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/comment', [CommentController::class, 'store'])->name('comment.store');
 
     Route::get('/profile/edit', [ProfileController::class, 'index'])->name('profile.index');
-    Route::put('/profile/edit/{user}', [ProfileController::class, 'update'])->name('profile.update');
+    Route::put('/profile/edit', [ProfileController::class, 'update_info'])->name('profile.update');
+    Route::put('/profile/edit/pass', [ProfileController::class, 'update_pass'])->name('pass.update');
 });

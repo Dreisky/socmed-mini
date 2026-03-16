@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class ProfileController extends Controller
 {
@@ -14,13 +15,25 @@ class ProfileController extends Controller
         ]);
     }
 
-    public function update(User $user, Request $request)
+    public function update_info(Request $request)
     {
         $validated = $request->validate([
             'username' => ['required'],
-            'email'    => ['required'],
+            'email'    => ['required', 'email'],
         ]);
 
-        $user->update($validated);
+        $request->user()->update($validated);
+    }
+
+    public function update_pass(Request $request)
+    {
+        $request->validate([
+            'current_password' => ['required', 'current_password'],
+            'password'         => ['required', 'confirmed', 'min:6'],
+        ]);
+
+        $request->user()->update([
+            'password' => Hash::make($request->password),
+        ]);
     }
 }

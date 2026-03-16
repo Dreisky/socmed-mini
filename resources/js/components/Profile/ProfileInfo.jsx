@@ -13,7 +13,7 @@ export default function ProfileInfo({ user }) {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        put(route("profile.update", user), {
+        put(route("profile.update"), {
             preserveScroll: true,
         });
     };
