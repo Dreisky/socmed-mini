@@ -190,10 +190,12 @@ export function AppSidebar() {
 
                         <DropdownMenuSeparator />
 
-                        <DropdownMenuItem>
-                            <UserIcon />
-                            <Link href={route("profile.index")}>Profile</Link>
-                        </DropdownMenuItem>
+                        <Link href={route("profile.index")}>
+                            <DropdownMenuItem>
+                                <UserIcon />
+                                Profile
+                            </DropdownMenuItem>
+                        </Link>
                         <DropdownMenuItem>
                             <SettingsIcon />
                             Settings

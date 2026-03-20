@@ -36,4 +36,11 @@ class ProfileController extends Controller
             'password' => Hash::make($request->password),
         ]);
     }
+
+    public function delete(Request $request)
+    {
+        $request->user()->delete();
+
+        return redirect(route('home.index'));
+    }
 }

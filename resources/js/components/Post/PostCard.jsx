@@ -85,19 +85,22 @@ export default function PostCard({ post, auth, onEdit, onDelete, onComment }) {
                 </div>
 
                 <div className="flex justify-between mt-4">
-                    {post.likes_count > 0 && (
-                        <div className="flex items-center gap-2">
-                            <ThumbsUp size={14} color="blue" />
-                            {post.likes_count}
-                        </div>
-                    )}
+                    <div>
+                        {post.likes_count > 0 && (
+                            <div className="flex items-center gap-2">
+                                <ThumbsUp size={14} color="blue" />
+                                {post.likes_count}
+                            </div>
+                        )}
+                    </div>
 
                     {post.comments_count > 0 && (
                         <p
                             className="cursor-pointer hover:underline"
                             onClick={() => onComment(post)}
                         >
-                            {post.comments_count} comments
+                            {post.comments_count}{" "}
+                            {post.comments_count > 1 ? "comments" : "comment"}
                         </p>
                     )}
                 </div>
