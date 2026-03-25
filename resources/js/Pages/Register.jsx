@@ -1,7 +1,5 @@
-import { useRef, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import { Field, FieldGroup, FieldLabel } from "@/components/ui/field";
 import { Link } from "@inertiajs/react";
 import { route } from "ziggy-js";
@@ -17,11 +15,7 @@ import {
 } from "@/components/ui/select";
 
 export default function Register() {
-    const fileInputRef = useRef(null);
-
-    const [preview, setPreview] = useState(null);
-
-    const { data, setData, post, processing, reset } = useForm({
+    const { data, setData, post, processing, reset, errors } = useForm({
         username: "",
         email: "",
         gender: "",
@@ -65,50 +59,7 @@ export default function Register() {
                             onSubmit={handleSubmit}
                             encType="multipart/form-data"
                         >
-                            {preview && (
-                                <div className="flex justify-center">
-                                    <Avatar className="rounded-full h-40 w-40">
-                                        <AvatarImage
-                                            src={preview}
-                                            className="object-cover"
-                                        />
-                                        <AvatarFallback>CN</AvatarFallback>
-                                    </Avatar>
-                                </div>
-                            )}
                             <FieldGroup>
-                                <Field>
-                                    <FieldLabel htmlFor="picture">
-                                        Profile Picture
-                                    </FieldLabel>
-                                    <Input
-                                        type="file"
-                                        ref={fileInputRef}
-                                        className="hidden"
-                                        accept="image/*"
-                                        onChange={(e) => {
-                                            const file = e.target.files[0];
-                                            if (file) {
-                                                setPreview(
-                                                    URL.createObjectURL(file),
-                                                );
-                                            }
-                                            setData(
-                                                "profile_picture",
-                                                e.target.files[0],
-                                            );
-                                        }}
-                                    />
-                                    <Button
-                                        type="button"
-                                        onClick={() =>
-                                            fileInputRef.current.click()
-                                        }
-                                    >
-                                        Select Photo
-                                    </Button>
-                                </Field>
-
                                 <Field>
                                     <FieldLabel htmlFor="name">
                                         Username
@@ -123,6 +74,12 @@ export default function Register() {
                                         placeholder="John Smith"
                                     />
                                 </Field>
+
+                                {errors.username && (
+                                    <p className="text-red-500 text-xs italic">
+                                        {errors.username}
+                                    </p>
+                                )}
 
                                 <Field>
                                     <FieldLabel htmlFor="name">
@@ -153,6 +110,12 @@ export default function Register() {
                                     </Select>
                                 </Field>
 
+                                {errors.gender && (
+                                    <p className="text-red-500 text-xs italic">
+                                        {errors.gender}
+                                    </p>
+                                )}
+
                                 <Field>
                                     <FieldLabel htmlFor="email">
                                         Email
@@ -167,6 +130,12 @@ export default function Register() {
                                         placeholder="johnsmith@gmail.com"
                                     />
                                 </Field>
+
+                                {errors.email && (
+                                    <p className="text-red-500 text-xs italic">
+                                        {errors.email}
+                                    </p>
+                                )}
 
                                 <Field>
                                     <FieldLabel htmlFor="password">
@@ -184,10 +153,17 @@ export default function Register() {
                                     />
                                 </Field>
 
+                                {errors.password && (
+                                    <p className="text-red-500 text-xs italic">
+                                        {errors.password}
+                                    </p>
+                                )}
+
                                 <div className="space-y-4 mt-6">
                                     <Button
                                         type="submit"
                                         className="w-full py-6 rounded-full text-md"
+                                        disabled={processing}
                                     >
                                         Sign up
                                     </Button>

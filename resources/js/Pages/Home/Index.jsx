@@ -13,6 +13,7 @@ import PostAddCard from "@/components/Post/PostAddCard";
 
 export default function Index({ posts }) {
     const { auth } = usePage().props;
+    const { props } = usePage();
 
     const [activePost, setActivePost] = useState(null);
 

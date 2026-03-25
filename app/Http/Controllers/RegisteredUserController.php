@@ -3,6 +3,8 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class RegisteredUserController extends Controller
 {
@@ -14,23 +16,18 @@ class RegisteredUserController extends Controller
     public function store(Request $request)
     {
         $attributes = $request->validate([
-            'username'        => ['required', 'min:3'],
-            'email'           => ['required', 'email'],
-            'gender'          => ['required'],
-            'password'        => ['required'],
-            'profile_picture' => ['nullable'],
+            'username' => ['required', 'min:3'],
+            'email'    => ['required', 'email', 'unique:users,email'],
+            'gender'   => ['required'],
+            'password' => ['required'],
         ]);
 
-        if ($request->hasFile('profile_picture')) {
-            $attributes['profile_picture'] =
-            $request->file('profile_picture')
-                ->store('profiles', 'public');
-        }
+        $attributes['password'] = Hash::make($attributes['password']);
 
-        User::Create($attributes);
+        $user = User::Create($attributes);
 
-        // Auth::login($user);
+        Auth::login($user);
 
-        return redirect('/login');
+        return redirect(route('setup.pic'));
     }
 }

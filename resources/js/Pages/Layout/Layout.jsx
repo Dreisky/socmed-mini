@@ -12,11 +12,14 @@ import {
 } from "@/components/ui/input-group";
 import { Search } from "lucide-react";
 import { Toaster } from "sonner";
+import FlashToast from "@/components/FlashToast";
 // import ThemeToggle from "@/components/theme-toggle";
 
 export default function Layout({ children, header }) {
     return (
         <SidebarProvider defaultOpen>
+            <Toaster position="top-right" richColors />
+
             <AppSidebar />
 
             <SidebarInset>
@@ -47,8 +50,9 @@ export default function Layout({ children, header }) {
                 </header>
 
                 <main className="flex-1 p-6 w-full">
+                    <FlashToast />
+
                     {children}
-                    <Toaster position="top-right" richColors />
                 </main>
             </SidebarInset>
         </SidebarProvider>

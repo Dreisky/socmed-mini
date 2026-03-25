@@ -7,6 +7,7 @@ use App\Http\Controllers\PostController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RegisteredUserController;
 use App\Http\Controllers\SessionController;
+use App\Http\Controllers\SetUpController;
 use Illuminate\Support\Facades\Route;
 
 Route::redirect('/', '/login');
@@ -19,6 +20,9 @@ Route::post('/register', [RegisteredUserController::class, 'store'])->name('user
 
 Route::middleware(['auth'])->group(function () {
     Route::get('/home', [HomeController::class, 'index'])->name('home.index');
+
+    Route::get('/setup/pic', [SetUpController::class, 'index'])->name('setup.pic');
+    Route::post('/setup/pic', [SetUpController::class, 'storeProfilePic'])->name('setup.pic.post');
 
     Route::post('/post', [PostController::class, 'store'])->name('post.store');
     Route::put('/post/{post}', [PostController::class, 'update'])->name('post.update');
