@@ -4,6 +4,7 @@ import { Field, FieldGroup, FieldLabel } from "@/components/ui/field";
 import { DitherShader } from "@/components/ui/dither-shader";
 import { Link, useForm } from "@inertiajs/react";
 import { route } from "ziggy-js";
+import ThemeToggle from "@/components/theme-toggle";
 
 export default function Login() {
     const { data, setData, post, processing, errors, reset } = useForm({
@@ -52,7 +53,7 @@ export default function Login() {
             </div>
 
             <div className="flex flex-1 items-center justify-center p-6 sm:p-12">
-                <div className="w-full max-w-md">
+                <div className="w-full max-w-md relative">
                     <Field className="mb-8">
                         <FieldLabel className="text-2xl font-semibold">
                             Log in to <span className="italic">Blinkr</span>
@@ -129,6 +130,10 @@ export default function Login() {
                             </div>
                         </FieldGroup>
                     </form>
+
+                    <button className="absolute top-0 right-0">
+                        <ThemeToggle />
+                    </button>
                 </div>
             </div>
         </div>

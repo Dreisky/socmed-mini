@@ -13,7 +13,7 @@ import {
 import { Search } from "lucide-react";
 import { Toaster } from "sonner";
 import FlashToast from "@/components/FlashToast";
-// import ThemeToggle from "@/components/theme-toggle";
+import ThemeToggle from "@/components/theme-toggle";
 
 export default function Layout({ children, header }) {
     return (
@@ -37,6 +37,7 @@ export default function Layout({ children, header }) {
                             />
                             <AvatarFallback>CN</AvatarFallback>
                         </Avatar> */}
+                        <ThemeToggle />
                         <InputGroup className="max-w-xs">
                             <InputGroupInput placeholder="Search..." />
                             <InputGroupAddon>
