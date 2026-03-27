@@ -11,7 +11,7 @@ import {
     InputGroupInput,
 } from "@/components/ui/input-group";
 import { Search } from "lucide-react";
-import { Toaster } from "sonner";
+import { Toaster } from "@/components/ui/sonner";
 import FlashToast from "@/components/FlashToast";
 import ThemeToggle from "@/components/theme-toggle";
 

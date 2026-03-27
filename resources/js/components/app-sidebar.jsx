@@ -45,29 +45,31 @@ export function AppSidebar() {
 
     return (
         <Sidebar>
-            <SidebarHeader className="flex items-center justify-center px-4 py-6 border-b">
-                <Avatar className="w-28 h-28">
-                    <AvatarImage
-                        // src="https://github.com/shadcn.png"
-                        className="object-cover"
-                        src={
-                            auth.user.profile_picture
-                                ? `/storage/${auth.user.profile_picture}`
-                                : "https://github.com/shadcn.png"
-                        }
-                        alt="@shadcn"
-                    />
-                    <AvatarFallback>CN</AvatarFallback>
-                </Avatar>
-                <div className="text-center">
-                    <p className="mt-4 mb-0 text-xl font-bold uppercase">
-                        {auth.user.username}
-                    </p>
-                    <p className="text-xs italic font-light">
-                        {auth.user.email}
-                    </p>
-                </div>
-            </SidebarHeader>
+            <Link href={route("profile.index")}>
+                <SidebarHeader className="flex items-center justify-center px-4 py-6 border-b">
+                    <Avatar className="w-28 h-28">
+                        <AvatarImage
+                            // src="https://github.com/shadcn.png"
+                            className="object-cover"
+                            src={
+                                auth.user.profile_picture
+                                    ? `/storage/${auth.user.profile_picture}`
+                                    : "https://github.com/shadcn.png"
+                            }
+                            alt="@shadcn"
+                        />
+                        <AvatarFallback>CN</AvatarFallback>
+                    </Avatar>
+                    <div className="text-center">
+                        <p className="mt-4 mb-0 text-xl font-bold uppercase">
+                            {auth.user.username}
+                        </p>
+                        <p className="text-xs italic font-light">
+                            {auth.user.email}
+                        </p>
+                    </div>
+                </SidebarHeader>
+            </Link>
 
             <SidebarContent>
                 <SidebarGroup>
@@ -190,7 +192,7 @@ export function AppSidebar() {
 
                         <DropdownMenuSeparator />
 
-                        <Link href={route("profile.index")}>
+                        <Link href={route("profile.edit")}>
                             <DropdownMenuItem>
                                 <UserIcon />
                                 Profile

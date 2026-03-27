@@ -1,7 +1,6 @@
 <?php
 namespace App\Http\Controllers;
 
-use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -11,6 +10,14 @@ class ProfileController extends Controller
     public function index()
     {
         return inertia('Home/Profile', [
+            'user'  => Auth::user(),
+            'posts' => Auth::user()->posts,
+        ]);
+    }
+
+    public function edit()
+    {
+        return inertia('Home/ProfileInformation', [
             'user' => Auth::user(),
         ]);
     }

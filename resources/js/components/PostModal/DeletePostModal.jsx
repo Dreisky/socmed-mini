@@ -26,8 +26,6 @@ export default function DeletePostModal({ open, onOpenChange, post }) {
         });
     };
 
-    console.log(post);
-
     return (
         <>
             <AlertDialog
