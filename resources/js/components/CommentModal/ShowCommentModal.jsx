@@ -1,21 +1,9 @@
 import Modal from "@/components/Modal";
 import AddCommentModal from "@/components/CommentModal/AddCommentModal";
-import { Input } from "@/components/ui/input";
-import { useForm, usePage } from "@inertiajs/react";
-import { Button } from "@/components/ui/button";
-import { Separator } from "@/components/ui/separator";
-import { route } from "ziggy-js";
+import { usePage } from "@inertiajs/react";
 import { useEffect, useState } from "react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import {
-    Card,
-    CardAction,
-    CardContent,
-    CardDescription,
-    CardFooter,
-    CardHeader,
-    CardTitle,
-} from "@/components/ui/card";
+import { Card, CardContent } from "@/components/ui/card";
 
 export default function ShowCommentModal({ open, onOpenChange, post }) {
     const { auth } = usePage().props;

@@ -9,9 +9,32 @@ class ProfileController extends Controller
 {
     public function index()
     {
+        $user = auth()->user();
+        $userId = $user->id;
+
         return inertia('Home/Profile', [
-            'user'  => Auth::user(),
-            'posts' => Auth::user()->posts,
+            'user' => $user,
+
+            'posts' => $user->posts()
+                ->with('user', 'likes', 'comments.user')
+                ->latest()
+                ->get()
+                ->map(function ($post) use ($userId) {
+                    return [
+                        'id'             => $post->id,
+                        'description'    => $post->description,
+                        'created_at'     => $post->created_at,
+                        'user'           => $post->user,
+                        'post_photo'     => $post->post_photo,
+
+                        'comments'       => $post->comments,
+                        'comments_count' => $post->comments->count(),
+
+                        'likes_count'    => $post->likes->count(),
+
+                        'is_liked'       => $post->likes->contains('user_id', $userId),
+                    ];
+                }),
         ]);
     }
 

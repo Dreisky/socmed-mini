@@ -15,9 +15,21 @@ import {
 import { Ellipsis, Pencil, Trash, ThumbsUp, MessageCircle } from "lucide-react";
 
 import LikeButton from "@/components/Post/LikeButton";
+import { useEffect, useRef, useState } from "react";
 
 export default function PostCard({ post, auth, onEdit, onDelete, onComment }) {
     const isOwner = auth.user.id === post.user.id;
+
+    const ref = useRef(null);
+    const [expanded, setExpanded] = useState(false);
+    const [isClampled, setIsClamped] = useState(false);
+
+    useEffect(() => {
+        const el = ref.current;
+        if (el) {
+            setIsClamped(el.scrollHeight > el.clientHeight);
+        }
+    }, []);
 
     return (
         <Card>
@@ -74,7 +86,24 @@ export default function PostCard({ post, auth, onEdit, onDelete, onComment }) {
 
             <CardContent>
                 <div className="border rounded-lg">
-                    <div className="p-4 text-justify">{post.description}</div>
+                    <div className="p-4 ">
+                        <p
+                            ref={ref}
+                            className={`text-justify whitespace-pre-wrap ${!expanded ? "line-clamp-3" : ""}`}
+                        >
+                            {post.description}
+                        </p>
+
+                        {!expanded && isClampled && (
+                            <Button
+                                variant="link"
+                                className="p-0"
+                                onClick={() => setExpanded(!expanded)}
+                            >
+                                See More
+                            </Button>
+                        )}
+                    </div>
 
                     {post.post_photo && (
                         <img

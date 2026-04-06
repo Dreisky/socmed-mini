@@ -7,6 +7,8 @@ import EditPostModal from "@/components/PostModal/EditPostModal";
 import DeletePostModal from "@/components/PostModal/DeletePostModal";
 import ShowCommentModal from "@/components/CommentModal/ShowCommentModal";
 
+import FadeIn from "@/components/Animation/FadeIn";
+
 import { usePage } from "@inertiajs/react";
 import PostCard from "@/components/Post/PostCard";
 import PostAddCard from "@/components/Post/PostAddCard";
@@ -44,24 +46,25 @@ export default function Index({ posts }) {
                     />
 
                     {/* POSTS */}
-                    {posts.map((post) => (
-                        <PostCard
-                            key={post.id}
-                            post={post}
-                            auth={auth}
-                            onEdit={() => {
-                                setActivePost(post);
-                                setEditPostModalOpen(true);
-                            }}
-                            onDelete={() => {
-                                setActivePost(post);
-                                setDeletePostModalOpen(true);
-                            }}
-                            onComment={() => {
-                                setActivePost(post);
-                                setShowCommentModalOpen(true);
-                            }}
-                        />
+                    {posts.map((post, index) => (
+                        <FadeIn key={post.id} index={index}>
+                            <PostCard
+                                post={post}
+                                auth={auth}
+                                onEdit={() => {
+                                    setActivePost(post);
+                                    setEditPostModalOpen(true);
+                                }}
+                                onDelete={() => {
+                                    setActivePost(post);
+                                    setDeletePostModalOpen(true);
+                                }}
+                                onComment={() => {
+                                    setActivePost(post);
+                                    setShowCommentModalOpen(true);
+                                }}
+                            />
+                        </FadeIn>
                     ))}
                 </div>
                 <div>
