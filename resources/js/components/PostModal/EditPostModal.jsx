@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { route } from "ziggy-js";
 import { useEffect, useState } from "react";
+import { Textarea } from "@/components/ui/textarea";
 
 export default function EditPostModal({ open, onOpenChange, post }) {
     const { data, setData, put, processing, errors, reset } = useForm({
@@ -36,7 +37,8 @@ export default function EditPostModal({ open, onOpenChange, post }) {
                 title={"Update Post"}
             >
                 <div className="space-y-4">
-                    <Input
+                    <Textarea
+                        className="h-24"
                         value={data.description}
                         onChange={(e) => setData("description", e.target.value)}
                         placeholder="What's on your mind?"

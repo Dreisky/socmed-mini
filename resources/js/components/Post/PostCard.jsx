@@ -12,7 +12,9 @@ import {
     DropdownMenuItem,
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { Ellipsis, Pencil, Trash, ThumbsUp, MessageCircle } from "lucide-react";
+
+import { IconThumbUp, IconMessageCircle } from "@tabler/icons-react";
+import { Ellipsis, Pencil, Trash, MessageCircle } from "lucide-react";
 
 import LikeButton from "@/components/Post/LikeButton";
 import { useEffect, useRef, useState } from "react";
@@ -117,20 +119,17 @@ export default function PostCard({ post, auth, onEdit, onDelete, onComment }) {
                     <div>
                         {post.likes_count > 0 && (
                             <div className="flex items-center gap-2">
-                                <ThumbsUp size={14} color="blue" />
+                                <IconThumbUp size={14} color="blue" />
                                 {post.likes_count}
                             </div>
                         )}
                     </div>
 
                     {post.comments_count > 0 && (
-                        <p
-                            className="cursor-pointer hover:underline"
-                            onClick={() => onComment(post)}
-                        >
+                        <Button variant="link" onClick={() => onComment(post)}>
                             {post.comments_count}{" "}
                             {post.comments_count > 1 ? "comments" : "comment"}
-                        </p>
+                        </Button>
                     )}
                 </div>
             </CardContent>
@@ -139,8 +138,12 @@ export default function PostCard({ post, auth, onEdit, onDelete, onComment }) {
                 <div className="grid w-full grid-cols-2 gap-2">
                     <LikeButton post={post} />
 
-                    <Button variant="ghost" onClick={() => onComment(post)}>
-                        <MessageCircle />
+                    <Button
+                        variant="ghost"
+                        className="text-md"
+                        onClick={() => onComment(post)}
+                    >
+                        <IconMessageCircle />
                         Comment
                     </Button>
                 </div>

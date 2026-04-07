@@ -63,8 +63,10 @@ export default function ShowCommentModal({ open, onOpenChange, post }) {
                         </div>
 
                         <div className="border rounded-lg">
-                            <div className="p-4 text-justify">
-                                <p>{post.description}</p>
+                            <div className="p-4">
+                                <p className="text-justify whitespace-pre-wrap">
+                                    {post.description}
+                                </p>
                             </div>
                             <div>
                                 {post.post_photo && (

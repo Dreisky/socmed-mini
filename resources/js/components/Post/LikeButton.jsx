@@ -1,6 +1,7 @@
+import { IconThumbUp, IconThumbUpFilled } from "@tabler/icons-react";
+
 import { useForm } from "@inertiajs/react";
 import { Button } from "@/components/ui/button";
-import { ThumbsUp } from "lucide-react";
 
 export default function LikeButton({ post }) {
     const { post: sendPost, processing } = useForm();
@@ -15,11 +16,16 @@ export default function LikeButton({ post }) {
 
     return (
         <>
-            <Button variant="ghost" onClick={toglleLike} disabled={processing}>
+            <Button
+                variant="ghost"
+                className="text-md"
+                onClick={toglleLike}
+                disabled={processing}
+            >
                 {post.is_liked ? (
-                    <ThumbsUp fill="blue" stroke="none" />
+                    <IconThumbUpFilled size={32} fill="blue" />
                 ) : (
-                    <ThumbsUp />
+                    <IconThumbUp />
                 )}
                 Like
             </Button>

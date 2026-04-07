@@ -1,4 +1,5 @@
 import { useForm } from "@inertiajs/react";
+import { toast } from "sonner";
 import { route } from "ziggy-js";
 import {
     AlertDialog,
@@ -21,6 +22,7 @@ export default function DeletePostModal({ open, onOpenChange, post }) {
         destroy(route("post.delete", post), {
             onSuccess: () => {
                 onOpenChange(false);
+                toast.success("Post has been deleted");
                 reset();
             },
         });
@@ -40,11 +42,7 @@ export default function DeletePostModal({ open, onOpenChange, post }) {
                         </AlertDialogMedia>
                         <AlertDialogTitle>Delete Post?</AlertDialogTitle>
                         <AlertDialogDescription>
-                            This will permanently delete this{" "}
-                            <span className="font-semibold">
-                                "{post?.description}"
-                            </span>{" "}
-                            post.
+                            This will permanently delete this post.
                         </AlertDialogDescription>
                     </AlertDialogHeader>
                     <AlertDialogFooter>

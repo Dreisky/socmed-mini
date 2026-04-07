@@ -23,7 +23,7 @@ export default function PostAddCard({ auth, onAdd }) {
                     <Button
                         onClick={onAdd}
                         variant="outline"
-                        className="flex-1 rounded-full text-start"
+                        className="flex-1 rounded-full text-start bg-white"
                         size="lg"
                     >
                         What's on your mind, {auth.user.username}?
