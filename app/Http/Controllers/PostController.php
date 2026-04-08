@@ -9,7 +9,7 @@ class PostController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'description' => ['required', 'max:100'],
+            'description' => ['required'],
             'post_photo'  => ['nullable', 'image'],
         ]);
 
@@ -29,7 +29,7 @@ class PostController extends Controller
     public function update(Post $post, Request $request)
     {
         $validated = $request->validate([
-            'description' => ['required', 'max:100'],
+            'description' => ['required'],
         ]);
 
         $post->update($validated);

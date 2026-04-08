@@ -12,19 +12,18 @@ import {
     DropdownMenuItem,
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-
+import { Dialog, DialogContent } from "@/components/ui/dialog";
 import { IconThumbUp, IconMessageCircle } from "@tabler/icons-react";
-import { Ellipsis, Pencil, Trash, MessageCircle } from "lucide-react";
-
+import { Ellipsis, Pencil, Trash, ThumbsUp, MessageCircle } from "lucide-react";
 import LikeButton from "@/components/Post/LikeButton";
 import { useEffect, useRef, useState } from "react";
 
 export default function PostCard({ post, auth, onEdit, onDelete, onComment }) {
     const isOwner = auth.user.id === post.user.id;
-
     const ref = useRef(null);
     const [expanded, setExpanded] = useState(false);
-    const [isClampled, setIsClamped] = useState(false);
+    const [isClamped, setIsClamped] = useState(false);
+    const [imageOpen, setImageOpen] = useState(false);
 
     useEffect(() => {
         const el = ref.current;
@@ -34,9 +33,10 @@ export default function PostCard({ post, auth, onEdit, onDelete, onComment }) {
     }, []);
 
     return (
-        <Card>
-            <CardHeader>
-                <div className="flex items-center justify-between capitalize">
+        <Card className="overflow-hidden gap-2 rounded-lg border border-border shadow-sm bg-card">
+            {/* Header */}
+            <CardHeader className="px-4 space-y-0">
+                <div className="flex items-start justify-between">
                     <div className="flex items-center gap-2">
                         <Avatar className="w-10 h-10">
                             <AvatarImage
@@ -47,16 +47,25 @@ export default function PostCard({ post, auth, onEdit, onDelete, onComment }) {
                                         : "https://github.com/shadcn.png"
                                 }
                             />
-                            <AvatarFallback>CN</AvatarFallback>
+                            <AvatarFallback className="text-sm font-medium">
+                                {post.user.username?.slice(0, 2).toUpperCase()}
+                            </AvatarFallback>
                         </Avatar>
-
                         <div>
-                            <p className="font-semibold text-md">
+                            <p className="font-semibold text-sm leading-tight capitalize">
                                 {post.user.username}
                             </p>
-
-                            <p className="text-xs italic font-light">
-                                {new Date(post.created_at).toLocaleString()}
+                            <p className="text-xs text-muted-foreground">
+                                {new Date(post.created_at).toLocaleString(
+                                    undefined,
+                                    {
+                                        month: "short",
+                                        day: "numeric",
+                                        year: "numeric",
+                                        hour: "2-digit",
+                                        minute: "2-digit",
+                                    },
+                                )}
                             </p>
                         </div>
                     </div>
@@ -64,21 +73,27 @@ export default function PostCard({ post, auth, onEdit, onDelete, onComment }) {
                     {isOwner && (
                         <DropdownMenu>
                             <DropdownMenuTrigger asChild>
-                                <Button variant="ghost">
-                                    <Ellipsis />
+                                <Button
+                                    variant="ghost"
+                                    size="icon"
+                                    className="h-8 w-8 rounded-full text-muted-foreground"
+                                >
+                                    <Ellipsis size={18} />
                                 </Button>
                             </DropdownMenuTrigger>
-
-                            <DropdownMenuContent align="end">
-                                <DropdownMenuItem onClick={() => onEdit(post)}>
-                                    <Pencil /> Edit
+                            <DropdownMenuContent align="end" className="w-36">
+                                <DropdownMenuItem
+                                    className="gap-2 cursor-pointer"
+                                    onClick={() => onEdit(post)}
+                                >
+                                    <Pencil size={14} /> Edit
                                 </DropdownMenuItem>
-
                                 <DropdownMenuItem
                                     variant="destructive"
+                                    className="gap-2 cursor-pointer"
                                     onClick={() => onDelete(post)}
                                 >
-                                    <Trash /> Delete
+                                    <Trash size={14} /> Delete
                                 </DropdownMenuItem>
                             </DropdownMenuContent>
                         </DropdownMenu>
@@ -86,64 +101,89 @@ export default function PostCard({ post, auth, onEdit, onDelete, onComment }) {
                 </div>
             </CardHeader>
 
-            <CardContent>
-                <div className="border rounded-lg">
-                    <div className="p-4 ">
+            {/* Content */}
+            <CardContent className="p-0">
+                {/* Description */}
+                {post.description && (
+                    <div className="px-4">
                         <p
                             ref={ref}
-                            className={`text-justify whitespace-pre-wrap ${!expanded ? "line-clamp-3" : ""}`}
+                            className={`text-sm leading-relaxed whitespace-pre-wrap ${!expanded ? "line-clamp-5" : ""}`}
                         >
                             {post.description}
                         </p>
-
-                        {!expanded && isClampled && (
-                            <Button
-                                variant="link"
-                                className="p-0"
-                                onClick={() => setExpanded(!expanded)}
+                        {!expanded && isClamped && (
+                            <button
+                                className="text-xs text-muted-foreground hover:underline mt-0.5"
+                                onClick={() => setExpanded(true)}
                             >
-                                See More
-                            </Button>
+                                See more
+                            </button>
                         )}
                     </div>
+                )}
 
-                    {post.post_photo && (
+                {/* Image */}
+                {post.post_photo && (
+                    <>
                         <img
                             src={`/storage/${post.post_photo}`}
-                            className="mx-auto max-h-100 max-w-full object-contain"
+                            className="w-full object-cover cursor-pointer pt-2"
+                            alt="Post photo"
+                            onClick={() => setImageOpen(true)}
                         />
-                    )}
-                </div>
 
-                <div className="flex justify-between mt-4">
-                    <div>
-                        {post.likes_count > 0 && (
-                            <div className="flex items-center gap-2">
-                                <IconThumbUp size={14} color="blue" />
-                                {post.likes_count}
+                        <Dialog open={imageOpen} onOpenChange={setImageOpen}>
+                            <DialogContent className="!max-w-none w-screen h-screen bg-black p-0 border-none flex items-center justify-center">
+                                <img
+                                    src={`/storage/${post.post_photo}`}
+                                    className="w-full h-full object-contain"
+                                    alt="Post photo"
+                                />
+                            </DialogContent>
+                        </Dialog>
+                    </>
+                )}
+
+                {/* Stats row — likes count + comments count */}
+                {(post.likes_count > 0 || post.comments_count > 0) && (
+                    <div className="flex items-center justify-between px-4 py-1.5 pt-3 text-md text-muted-foreground">
+                        {post.likes_count > 0 ? (
+                            <div className="flex items-center gap-1">
+                                <span className="inline-flex items-center justify-center w-4 h-4 rounded-full bg-blue-500">
+                                    <IconThumbUp size={10} color="white" />
+                                </span>
+                                <span>{post.likes_count}</span>
                             </div>
+                        ) : (
+                            <span />
+                        )}
+
+                        {post.comments_count > 0 && (
+                            <button
+                                className="hover:underline"
+                                onClick={() => onComment(post)}
+                            >
+                                {post.comments_count}{" "}
+                                {post.comments_count === 1
+                                    ? "comment"
+                                    : "comments"}
+                            </button>
                         )}
                     </div>
-
-                    {post.comments_count > 0 && (
-                        <Button variant="link" onClick={() => onComment(post)}>
-                            {post.comments_count}{" "}
-                            {post.comments_count > 1 ? "comments" : "comment"}
-                        </Button>
-                    )}
-                </div>
+                )}
             </CardContent>
 
-            <CardFooter>
-                <div className="grid w-full grid-cols-2 gap-2">
+            {/* Footer Actions */}
+            <CardFooter className="px-2 py-1">
+                <div className="grid w-full grid-cols-2">
                     <LikeButton post={post} />
-
                     <Button
                         variant="ghost"
-                        className="text-md"
+                        className="gap-2 text-md text-muted-foreground hover:bg-accent font-medium rounded-md h-10"
                         onClick={() => onComment(post)}
                     >
-                        <IconMessageCircle />
+                        <MessageCircle size={22} />
                         Comment
                     </Button>
                 </div>

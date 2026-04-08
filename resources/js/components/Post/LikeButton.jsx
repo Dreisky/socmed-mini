@@ -23,7 +23,7 @@ export default function LikeButton({ post }) {
                 disabled={processing}
             >
                 {post.is_liked ? (
-                    <IconThumbUpFilled size={32} fill="blue" />
+                    <IconThumbUpFilled fill="blue" />
                 ) : (
                     <IconThumbUp />
                 )}
