@@ -13,7 +13,7 @@ import {
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Dialog, DialogContent } from "@/components/ui/dialog";
-import { IconThumbUp, IconMessageCircle } from "@tabler/icons-react";
+import { IconHeartFilled } from "@tabler/icons-react";
 import { Ellipsis, Pencil, Trash, ThumbsUp, MessageCircle } from "lucide-react";
 import LikeButton from "@/components/Post/LikeButton";
 import { useEffect, useRef, useState } from "react";
@@ -33,7 +33,7 @@ export default function PostCard({ post, auth, onEdit, onDelete, onComment }) {
     }, []);
 
     return (
-        <Card className="overflow-hidden gap-2 rounded-lg border border-border shadow-sm bg-card">
+        <Card className="overflow-hidden gap-2 rounded-lg border border-border shadow-sm bg-card max-w-[875px]">
             {/* Header */}
             <CardHeader className="px-4 space-y-0">
                 <div className="flex items-start justify-between">
@@ -150,8 +150,8 @@ export default function PostCard({ post, auth, onEdit, onDelete, onComment }) {
                     <div className="flex items-center justify-between px-4 py-1.5 pt-3 text-md text-muted-foreground">
                         {post.likes_count > 0 ? (
                             <div className="flex items-center gap-1">
-                                <span className="inline-flex items-center justify-center w-4 h-4 rounded-full bg-blue-500">
-                                    <IconThumbUp size={10} color="white" />
+                                <span className="inline-flex items-center justify-center w-5 h-5 rounded-full bg-red-500">
+                                    <IconHeartFilled size={14} color="white" />
                                 </span>
                                 <span>{post.likes_count}</span>
                             </div>

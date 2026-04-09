@@ -12,6 +12,7 @@ import FadeIn from "@/components/Animation/FadeIn";
 import { usePage } from "@inertiajs/react";
 import PostCard from "@/components/Post/PostCard";
 import PostAddCard from "@/components/Post/PostAddCard";
+import { data } from "autoprefixer";
 
 export default function Index({ posts }) {
     const { auth } = usePage().props;

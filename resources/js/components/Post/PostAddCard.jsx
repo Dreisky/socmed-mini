@@ -26,7 +26,7 @@ export default function PostAddCard({ auth, onAdd }) {
                         className="flex-1 rounded-full text-start bg-white"
                         size="lg"
                     >
-                        What's on your mind, {auth.user.username}?
+                        Blink a thought...
                     </Button>
                 </CardContent>
             </Card>

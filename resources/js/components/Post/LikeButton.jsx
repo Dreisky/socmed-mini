@@ -1,4 +1,4 @@
-import { IconThumbUp, IconThumbUpFilled } from "@tabler/icons-react";
+import { IconHeart, IconHeartFilled } from "@tabler/icons-react";
 
 import { useForm } from "@inertiajs/react";
 import { Button } from "@/components/ui/button";
@@ -18,14 +18,18 @@ export default function LikeButton({ post }) {
         <>
             <Button
                 variant="ghost"
-                className="text-md"
+                className="text-md text-muted-foreground"
                 onClick={toglleLike}
                 disabled={processing}
             >
                 {post.is_liked ? (
-                    <IconThumbUpFilled fill="blue" />
+                    <IconHeartFilled
+                        size={32}
+                        className="p-0 m-0 h-full w-full"
+                        fill="red"
+                    />
                 ) : (
-                    <IconThumbUp />
+                    <IconHeart size={32} />
                 )}
                 Like
             </Button>

@@ -8,6 +8,7 @@ class PostController extends Controller
 {
     public function store(Request $request)
     {
+
         $validated = $request->validate([
             'description' => ['required'],
             'post_photo'  => ['nullable', 'image'],

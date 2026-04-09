@@ -10,7 +10,6 @@ import ShowCommentModal from "@/components/CommentModal/ShowCommentModal";
 
 import FadeIn from "@/components/Animation/FadeIn";
 
-import ProfilePostCard from "@/components/Post/ProfilePostCard";
 import { usePage } from "@inertiajs/react";
 
 import { IconFileText } from "@tabler/icons-react";
@@ -24,6 +23,7 @@ import {
     EmptyMedia,
     EmptyTitle,
 } from "@/components/ui/empty";
+import PostCard from "@/components/Post/PostCard";
 
 export default function Profile({ posts }) {
     const { auth } = usePage().props;
@@ -57,7 +57,7 @@ export default function Profile({ posts }) {
 
     return (
         <>
-            <div>
+            <div className="w-full max-w-2xl mx-auto">
                 <div className="space-y-3">
                     {posts.length === 0 && (
                         <Empty className="h-full">
@@ -91,7 +91,7 @@ export default function Profile({ posts }) {
                     {/* POSTS */}
                     {posts.map((post, index) => (
                         <FadeIn key={post.id} index={index}>
-                            <ProfilePostCard
+                            <PostCard
                                 post={post}
                                 auth={auth}
                                 onEdit={() => {

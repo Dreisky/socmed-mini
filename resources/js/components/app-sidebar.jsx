@@ -45,7 +45,7 @@ export function AppSidebar() {
 
     return (
         <Sidebar>
-            <Link href={route("profile.index")}>
+            {/* <Link href={route("profile.index")}>
                 <SidebarHeader className="flex items-center justify-center px-4 py-6 border-b">
                     <Avatar className="w-28 h-28">
                         <AvatarImage
@@ -69,22 +69,19 @@ export function AppSidebar() {
                         </p>
                     </div>
                 </SidebarHeader>
-            </Link>
+            </Link> */}
 
             <SidebarContent>
                 <SidebarGroup>
-                    <SidebarGroupLabel>Manage</SidebarGroupLabel>
-
                     <SidebarGroupContent>
                         <SidebarMenu>
-                            <SidebarMenuItem>
-                                <SidebarMenuButton
-                                    asChild
-                                    isActive={route().current("home.index")}
-                                >
-                                    <Link href={route("home.index")}>
-                                        <Home className=" mr-2" />
-                                        Home
+                            <SidebarMenuItem className="pb-4">
+                                <SidebarMenuButton asChild>
+                                    <Link
+                                        className="text-xl italic font-bold"
+                                        href={route("home.index")}
+                                    >
+                                        Blinkr
                                     </Link>
                                 </SidebarMenuButton>
                             </SidebarMenuItem>
@@ -92,11 +89,27 @@ export function AppSidebar() {
                             <SidebarMenuItem>
                                 <SidebarMenuButton
                                     asChild
-                                    isActive={url.startsWith("/clients")}
+                                    isActive={url.startsWith("/profile")}
                                 >
-                                    <Link href="/clients">
-                                        <Users className=" mr-2" />
-                                        Friends
+                                    <Link href={route("profile.index")}>
+                                        <Avatar className="w-8 h-8">
+                                            <AvatarImage
+                                                className="object-cover"
+                                                src={
+                                                    auth.user.profile_picture
+                                                        ? `/storage/${auth.user.profile_picture}`
+                                                        : "https://github.com/shadcn.png"
+                                                }
+                                            />
+                                            <AvatarFallback className="text-sm font-medium">
+                                                {auth.user.username
+                                                    ?.slice(0, 2)
+                                                    .toUpperCase()}
+                                            </AvatarFallback>
+                                        </Avatar>
+                                        <span className="capitalize">
+                                            {auth.user.username}
+                                        </span>
                                     </Link>
                                 </SidebarMenuButton>
                             </SidebarMenuItem>

@@ -26,6 +26,8 @@ export default function AddPostModal({ open, onOpenChange }) {
         post_photo: null,
     });
 
+    console.log(data);
+
     const handleSubmit = () => {
         post(route("post.store"), {
             forceFormData: true,
@@ -40,24 +42,14 @@ export default function AddPostModal({ open, onOpenChange }) {
 
     return (
         <>
-            <Modal
-                open={open}
-                onOpenChange={onOpenChange}
-                title={"Create Post"}
-            >
+            <Modal open={open} onOpenChange={onOpenChange} title={"New Blink"}>
                 <div className="space-y-4 max-h-[350px] overflow-y-auto">
                     <Textarea
                         className="h-24"
                         value={data.description}
                         onChange={(e) => setData("description", e.target.value)}
-                        placeholder="What's on your mind?"
+                        placeholder="Blink a thought..."
                     />
-
-                    {errors.description && (
-                        <p className="text-red-500 text-xs italic font-light">
-                            {errors.description}
-                        </p>
-                    )}
 
                     {preview && (
                         <div className="flex justify-center">
@@ -112,20 +104,12 @@ export default function AddPostModal({ open, onOpenChange }) {
 
                     <div className="flex justify-end gap-2">
                         <Button
-                            type="button"
-                            onClick={() => {
-                                reset();
-                                onOpenChange(false);
-                            }}
-                        >
-                            Cancel
-                        </Button>
-                        <Button
                             type="submit"
-                            disabled={processing}
+                            disabled={!data.description}
                             onClick={handleSubmit}
+                            className="w-full"
                         >
-                            Post
+                            Blink
                         </Button>
                     </div>
                 </div>
