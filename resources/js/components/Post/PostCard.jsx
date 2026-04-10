@@ -128,7 +128,7 @@ export default function PostCard({ post, auth, onEdit, onDelete, onComment }) {
                     <>
                         <img
                             src={`/storage/${post.post_photo}`}
-                            className="w-full object-cover cursor-pointer pt-2"
+                            className="w-full max-h-150 object-contain cursor-pointer pt-2"
                             alt="Post photo"
                             onClick={() => setImageOpen(true)}
                         />

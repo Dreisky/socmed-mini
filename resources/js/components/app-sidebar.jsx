@@ -116,7 +116,7 @@ export function AppSidebar() {
 
                             <SidebarMenuItem>
                                 <SidebarMenuButton asChild>
-                                    <Link href="/reports">
+                                    <Link href={route("messages.index")}>
                                         <MessageCircleMore className="mr-2" />
                                         Messages
                                     </Link>

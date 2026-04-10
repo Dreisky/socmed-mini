@@ -3,6 +3,7 @@
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LikeController;
+use App\Http\Controllers\MessagesController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RegisteredUserController;
@@ -33,9 +34,10 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/comment', [CommentController::class, 'store'])->name('comment.store');
 
     Route::get('/profile', [ProfileController::class, 'index'])->name('profile.index');
-
     Route::get('/profile/edit', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::put('/profile/edit', [ProfileController::class, 'update_info'])->name('profile.update');
     Route::put('/profile/edit/pass', [ProfileController::class, 'update_pass'])->name('pass.update');
     Route::delete('/profile/delete', [ProfileController::class, 'delete'])->name('account.delete');
+
+    Route::get('/messages', [MessagesController::class, 'index'])->name('messages.index');
 });

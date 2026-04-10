@@ -8,6 +8,8 @@ import EditPostModal from "@/components/PostModal/EditPostModal";
 import DeletePostModal from "@/components/PostModal/DeletePostModal";
 import ShowCommentModal from "@/components/CommentModal/ShowCommentModal";
 
+import CoverPhoto from "@/components/Profile/CoverPhoto";
+
 import FadeIn from "@/components/Animation/FadeIn";
 
 import { usePage } from "@inertiajs/react";
@@ -24,6 +26,7 @@ import {
     EmptyTitle,
 } from "@/components/ui/empty";
 import PostCard from "@/components/Post/PostCard";
+import PostAddCard from "@/components/Post/PostAddCard";
 
 export default function Profile({ posts }) {
     const { auth } = usePage().props;
@@ -57,85 +60,78 @@ export default function Profile({ posts }) {
 
     return (
         <>
-            <div className="w-full max-w-2xl mx-auto">
-                <div className="space-y-3">
-                    {posts.length === 0 && (
-                        <Empty className="h-full">
-                            <EmptyHeader>
-                                <EmptyMedia variant="icon">
-                                    <IconFileText />
-                                </EmptyMedia>
-                                <EmptyTitle>No Post Yet</EmptyTitle>
-                                <EmptyDescription className="max-w-xs text-pretty">
-                                    You haven’t shared anything yet. Your posts
-                                    will appear here once you create one.
-                                </EmptyDescription>
-                            </EmptyHeader>
-                            <EmptyContent>
-                                <Button
-                                    variant="outline"
-                                    onClick={handleRefresh}
-                                    disabled={loading}
-                                >
-                                    <RefreshCcwIcon
-                                        className={
-                                            loading ? "animate-spin" : ""
-                                        }
-                                    />
-                                    {loading ? "Refreshing..." : "Refresh"}
-                                </Button>
-                            </EmptyContent>
-                        </Empty>
-                    )}
+            <div className="max-w-7xl mx-auto space-y-3">
+                <CoverPhoto />
 
-                    {/* POSTS */}
-                    {posts.map((post, index) => (
-                        <FadeIn key={post.id} index={index}>
-                            <PostCard
-                                post={post}
+                <div className="w-full">
+                    <div className="grid grid-cols-5 w-full gap-3">
+                        <div className="col-span-2">
+                            <PostAddCard
                                 auth={auth}
-                                onEdit={() => {
-                                    setActivePost(post);
-                                    setEditPostModalOpen(true);
-                                }}
-                                onDelete={() => {
-                                    setActivePost(post);
-                                    setDeletePostModalOpen(true);
-                                }}
-                                onComment={() => {
-                                    setActivePost(post);
-                                    setShowCommentModalOpen(true);
+                                onAdd={() => {
+                                    setAddPostModalOpen(true);
                                 }}
                             />
-                        </FadeIn>
-                    ))}
+                        </div>
+                        <div className="space-y-3 col-span-3">
+                            {/* POST ADD CARD */}
+                            <PostAddCard
+                                auth={auth}
+                                onAdd={() => {
+                                    setAddPostModalOpen(true);
+                                }}
+                            />
+
+                            {/* POSTS */}
+                            {posts.map((post, index) => (
+                                <FadeIn key={post.id} index={index}>
+                                    <PostCard
+                                        post={post}
+                                        auth={auth}
+                                        onEdit={() => {
+                                            setActivePost(post);
+                                            setEditPostModalOpen(true);
+                                        }}
+                                        onDelete={() => {
+                                            setActivePost(post);
+                                            setDeletePostModalOpen(true);
+                                        }}
+                                        onComment={() => {
+                                            setActivePost(post);
+                                            setShowCommentModalOpen(true);
+                                        }}
+                                    />
+                                </FadeIn>
+                            ))}
+                        </div>
+                    </div>
                 </div>
-            </div>
 
-            <AddPostModal
-                open={addPostModalOpen}
-                onOpenChange={setAddPostModalOpen}
-            />
-            <EditPostModal
-                post={activePost}
-                open={editPostModalOpen}
-                onOpenChange={setEditPostModalOpen}
-            />
-            <DeletePostModal
-                post={activePost}
-                open={deletePostModalOpen}
-                onOpenChange={setDeletePostModalOpen}
-            />
-
-            {activePost && (
-                <ShowCommentModal
-                    post={activePost}
-                    open={showCommentModalOpen}
-                    onOpenChange={setShowCommentModalOpen}
+                <AddPostModal
+                    open={addPostModalOpen}
+                    onOpenChange={setAddPostModalOpen}
                 />
-            )}
+                <EditPostModal
+                    post={activePost}
+                    open={editPostModalOpen}
+                    onOpenChange={setEditPostModalOpen}
+                />
+                <DeletePostModal
+                    post={activePost}
+                    open={deletePostModalOpen}
+                    onOpenChange={setDeletePostModalOpen}
+                />
+
+                {activePost && (
+                    <ShowCommentModal
+                        post={activePost}
+                        open={showCommentModalOpen}
+                        onOpenChange={setShowCommentModalOpen}
+                    />
+                )}
+            </div>
         </>
     );
 }
 
-Profile.layout = (page) => <Layout>{page}</Layout>;
+Profile.layout = (page) => <Layout padding="p-0">{page}</Layout>;

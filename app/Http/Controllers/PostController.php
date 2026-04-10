@@ -10,9 +10,13 @@ class PostController extends Controller
     {
 
         $validated = $request->validate([
-            'description' => ['required'],
+            'description' => ['nullable'],
             'post_photo'  => ['nullable', 'image'],
         ]);
+
+        if(!$request->description && !$request->hasFile('post_photo')) {
+            return back();
+        }
 
         if ($request->hasFile('post_photo')) {
             $validated['post_photo'] =

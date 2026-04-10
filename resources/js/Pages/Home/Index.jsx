@@ -38,7 +38,7 @@ export default function Index({ posts }) {
     return (
         <>
             <div className="grid grid-cols-[2fr_1fr] gap-4">
-                <div className="space-y-3 border-e pe-6">
+                <div className="space-y-3 max-w-5xl mx-auto pe-6">
                     <PostAddCard
                         auth={auth}
                         onAdd={() => {
@@ -68,7 +68,7 @@ export default function Index({ posts }) {
                         </FadeIn>
                     ))}
                 </div>
-                <div>
+                <div className="border-s px-4">
                     <p>Under Dev...</p>
                 </div>
             </div>

@@ -15,7 +15,7 @@ import { Toaster } from "@/components/ui/sonner";
 import FlashToast from "@/components/FlashToast";
 import ThemeToggle from "@/components/theme-toggle";
 
-export default function Layout({ children, header }) {
+export default function Layout({ children, header, padding = "p-6" }) {
     return (
         <SidebarProvider defaultOpen>
             <Toaster position="top-right" richColors />
@@ -50,7 +50,7 @@ export default function Layout({ children, header }) {
                     </div>
                 </header>
 
-                <main className="flex-1 p-6 w-full">
+                <main className={`flex-1 w-full ${padding}`}>
                     <FlashToast />
 
                     {children}

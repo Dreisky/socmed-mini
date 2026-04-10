@@ -75,8 +75,11 @@ export default function Pic() {
                                 const file = e.target.files[0];
                                 if (file) {
                                     setPreview(URL.createObjectURL(file));
+                                    setData(
+                                        "profile_picture",
+                                        e.target.files[0],
+                                    );
                                 }
-                                setData("profile_picture", e.target.files[0]);
                             }}
                         />
 

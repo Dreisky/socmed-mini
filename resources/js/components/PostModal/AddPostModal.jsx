@@ -105,7 +105,10 @@ export default function AddPostModal({ open, onOpenChange }) {
                     <div className="flex justify-end gap-2">
                         <Button
                             type="submit"
-                            disabled={!data.description}
+                            disabled={
+                                processing ||
+                                (!data.post_photo && !data.description)
+                            }
                             onClick={handleSubmit}
                             className="w-full"
                         >

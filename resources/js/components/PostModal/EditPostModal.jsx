@@ -34,14 +34,14 @@ export default function EditPostModal({ open, onOpenChange, post }) {
             <Modal
                 open={open}
                 onOpenChange={onOpenChange}
-                title={"Update Post"}
+                title={"Update Blink"}
             >
                 <div className="space-y-4">
                     <Textarea
                         className="h-24"
                         value={data.description}
                         onChange={(e) => setData("description", e.target.value)}
-                        placeholder="What's on your mind?"
+                        placeholder="Blink a though..."
                     />
 
                     {errors.description && (

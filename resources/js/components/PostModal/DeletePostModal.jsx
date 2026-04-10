@@ -20,6 +20,7 @@ export default function DeletePostModal({ open, onOpenChange, post }) {
 
     const handleSubmit = () => {
         destroy(route("post.delete", post), {
+            preserveScroll: true,
             onSuccess: () => {
                 onOpenChange(false);
                 toast.success("Post has been deleted");
@@ -30,19 +31,15 @@ export default function DeletePostModal({ open, onOpenChange, post }) {
 
     return (
         <>
-            <AlertDialog
-                open={open}
-                onOpenChange={onOpenChange}
-                title={"Create Post"}
-            >
+            <AlertDialog open={open} onOpenChange={onOpenChange}>
                 <AlertDialogContent size="sm">
                     <AlertDialogHeader>
                         <AlertDialogMedia className="bg-destructive/10 text-destructive dark:bg-destructive/20 dark:text-destructive">
                             <Trash2Icon />
                         </AlertDialogMedia>
-                        <AlertDialogTitle>Delete Post?</AlertDialogTitle>
+                        <AlertDialogTitle>Delete Blink?</AlertDialogTitle>
                         <AlertDialogDescription>
-                            This will permanently delete this post.
+                            This will permanently delete this blink.
                         </AlertDialogDescription>
                     </AlertDialogHeader>
                     <AlertDialogFooter>
