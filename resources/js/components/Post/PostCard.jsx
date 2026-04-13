@@ -33,7 +33,7 @@ export default function PostCard({ post, auth, onEdit, onDelete, onComment }) {
     }, []);
 
     return (
-        <Card className="overflow-hidden gap-2 rounded-lg border border-border shadow-sm bg-card max-w-[875px]">
+        <Card className="overflow-hidden gap-2 shadow-sm max-w-[875px]">
             {/* Header */}
             <CardHeader className="px-4 space-y-0">
                 <div className="flex items-start justify-between">

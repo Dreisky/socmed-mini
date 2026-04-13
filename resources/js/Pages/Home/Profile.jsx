@@ -27,6 +27,8 @@ import {
 } from "@/components/ui/empty";
 import PostCard from "@/components/Post/PostCard";
 import PostAddCard from "@/components/Post/PostAddCard";
+import PersonalDetails from "@/components/Profile/PersonalDetails";
+import Bio from "@/components/Profile/Bio";
 
 export default function Profile({ posts }) {
     const { auth } = usePage().props;
@@ -60,20 +62,16 @@ export default function Profile({ posts }) {
 
     return (
         <>
-            <div className="max-w-7xl mx-auto space-y-3">
+            <div className="max-w-7xl mx-auto space-y-4">
                 <CoverPhoto />
 
                 <div className="w-full">
-                    <div className="grid grid-cols-5 w-full gap-3">
-                        <div className="col-span-2">
-                            <PostAddCard
-                                auth={auth}
-                                onAdd={() => {
-                                    setAddPostModalOpen(true);
-                                }}
-                            />
+                    <div className="grid grid-cols-5 w-full gap-4">
+                        <div className="col-span-2 flex flex-col gap-4">
+                            <Bio />
+                            <PersonalDetails />
                         </div>
-                        <div className="space-y-3 col-span-3">
+                        <div className="space-y-4 col-span-3">
                             {/* POST ADD CARD */}
                             <PostAddCard
                                 auth={auth}

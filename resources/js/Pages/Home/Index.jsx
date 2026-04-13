@@ -12,28 +12,36 @@ import FadeIn from "@/components/Animation/FadeIn";
 import { usePage } from "@inertiajs/react";
 import PostCard from "@/components/Post/PostCard";
 import PostAddCard from "@/components/Post/PostAddCard";
-import { data } from "autoprefixer";
+
+import SkeletonPostAddCard from "@/components/Skeleton/SkeletonPostAddCard";
+import SkeletonPostCard from "@/components/Skeleton/SkeletonPostCard";
 
 export default function Index({ posts }) {
     const { auth } = usePage().props;
-    const { props } = usePage();
-
-    const [activePost, setActivePost] = useState(null);
-
+    const [isLoading, setIsLoading] = useState(true);
     const [addPostModalOpen, setAddPostModalOpen] = useState(false);
     const [editPostModalOpen, setEditPostModalOpen] = useState(false);
     const [deletePostModalOpen, setDeletePostModalOpen] = useState(false);
     const [showCommentModalOpen, setShowCommentModalOpen] = useState(false);
+    const [activePost, setActivePost] = useState(null);
 
     useEffect(() => {
-        if (activePost) {
-            const updatedPost = posts.find((p) => p.id === activePost.id);
-
-            if (updatedPost) {
-                setActivePost(updatedPost);
-            }
+        if (posts) {
+            setTimeout(() => setIsLoading(false), 400); // show skeleton for at least 800ms
         }
     }, [posts]);
+
+    if (isLoading)
+        return (
+            <>
+                <div className="space-y-3">
+                    <SkeletonPostAddCard />
+                    <SkeletonPostCard />
+                    <SkeletonPostCard />
+                    <SkeletonPostCard />
+                </div>
+            </>
+        );
 
     return (
         <>
@@ -41,12 +49,8 @@ export default function Index({ posts }) {
                 <div className="space-y-3 max-w-5xl mx-auto pe-6">
                     <PostAddCard
                         auth={auth}
-                        onAdd={() => {
-                            setAddPostModalOpen(true);
-                        }}
+                        onAdd={() => setAddPostModalOpen(true)}
                     />
-
-                    {/* POSTS */}
                     {posts.map((post, index) => (
                         <FadeIn key={post.id} index={index}>
                             <PostCard
@@ -87,7 +91,6 @@ export default function Index({ posts }) {
                 open={deletePostModalOpen}
                 onOpenChange={setDeletePostModalOpen}
             />
-
             {activePost && (
                 <ShowCommentModal
                     post={activePost}
