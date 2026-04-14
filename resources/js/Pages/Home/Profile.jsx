@@ -1,32 +1,20 @@
 import Layout from "../Layout/Layout";
 
 import { useState, useEffect } from "react";
-import { router } from "@inertiajs/react";
 
 import AddPostModal from "../../components/PostModal/AddPostModal";
 import EditPostModal from "@/components/PostModal/EditPostModal";
 import DeletePostModal from "@/components/PostModal/DeletePostModal";
 import ShowCommentModal from "@/components/CommentModal/ShowCommentModal";
 
-import CoverPhoto from "@/components/Profile/CoverPhoto";
-
 import FadeIn from "@/components/Animation/FadeIn";
 
 import { usePage } from "@inertiajs/react";
 
-import { IconFileText } from "@tabler/icons-react";
-import { RefreshCcwIcon } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import {
-    Empty,
-    EmptyContent,
-    EmptyDescription,
-    EmptyHeader,
-    EmptyMedia,
-    EmptyTitle,
-} from "@/components/ui/empty";
 import PostCard from "@/components/Post/PostCard";
 import PostAddCard from "@/components/Post/PostAddCard";
+
+import CoverPhoto from "@/components/Profile/CoverPhoto";
 import PersonalDetails from "@/components/Profile/PersonalDetails";
 import Bio from "@/components/Profile/Bio";
 
@@ -39,16 +27,6 @@ export default function Profile({ posts }) {
     const [editPostModalOpen, setEditPostModalOpen] = useState(false);
     const [deletePostModalOpen, setDeletePostModalOpen] = useState(false);
     const [showCommentModalOpen, setShowCommentModalOpen] = useState(false);
-
-    const [loading, setLoading] = useState(false);
-
-    const handleRefresh = () => {
-        setLoading(true);
-        router.reload({
-            only: ["posts"],
-            onFinish: () => setLoading(false),
-        });
-    };
 
     useEffect(() => {
         if (activePost) {

@@ -27,7 +27,7 @@ class SessionController extends Controller
 
         request()->session()->regenerate();
 
-        return redirect(route('home.index'));
+        return redirect(route('home.index'))->with('success', 'Welcome to Blinkr');
     }
 
     public function destroy()

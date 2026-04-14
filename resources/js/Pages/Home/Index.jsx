@@ -27,7 +27,7 @@ export default function Index({ posts }) {
 
     useEffect(() => {
         if (posts) {
-            setTimeout(() => setIsLoading(false), 400); // show skeleton for at least 800ms
+            setTimeout(() => setIsLoading(false), 400);
         }
     }, [posts]);
 

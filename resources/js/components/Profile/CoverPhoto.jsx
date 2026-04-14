@@ -1,6 +1,8 @@
+import ProfileHead from "@/components/Profile/ProfileHead";
+
 export default function CoverPhoto() {
     return (
-        <>
+        <div>
             <div className="w-full h-[350px]">
                 <img
                     className="w-full h-full object-cover"
@@ -8,6 +10,8 @@ export default function CoverPhoto() {
                     alt=""
                 />
             </div>
-        </>
+
+            <ProfileHead />
+        </div>
     );
 }
