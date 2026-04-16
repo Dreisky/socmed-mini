@@ -35,6 +35,7 @@ export default function AddPostModal({ open, onOpenChange }) {
             preserveScroll: true,
             onSuccess: () => {
                 onOpenChange(false);
+                setPreview(null);
                 reset();
             },
         });

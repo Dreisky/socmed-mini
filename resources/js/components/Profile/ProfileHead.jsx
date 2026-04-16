@@ -10,7 +10,7 @@ export default function PorfileHead() {
     const { auth } = usePage().props;
 
     return (
-        <Card className="rounded-none border-none">
+        <Card className="rounded-none rounded-b-xl  border-none">
             <CardContent>
                 <div className="flex items-center justify-between">
                     <div className="flex items-center gap-4">

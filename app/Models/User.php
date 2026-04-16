@@ -23,6 +23,7 @@ class User extends Authenticatable
         'birthday',
         'gender',
         'profile_picture',
+        'cover_photo',
     ];
 
     public function posts()
