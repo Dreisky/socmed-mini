@@ -20,7 +20,7 @@ export default function CoverPhoto() {
         ? preview
         : auth.user.cover_photo
           ? `/storage/${auth.user.cover_photo}`
-          : "https://picsum.photos/600/300";
+          : "/images/coverphoto.png";
 
     const handleSubmit = (e) => {
         e.preventDefault();

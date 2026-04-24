@@ -91,7 +91,11 @@ export function AppSidebar() {
                                     asChild
                                     isActive={url.startsWith("/profile")}
                                 >
-                                    <Link href={route("profile.index")}>
+                                    <Link
+                                        href={route("profile.index", {
+                                            username: auth.user.username,
+                                        })}
+                                    >
                                         <Avatar className="w-8 h-8">
                                             <AvatarImage
                                                 className="object-cover"
@@ -205,7 +209,11 @@ export function AppSidebar() {
 
                         <DropdownMenuSeparator />
 
-                        <Link href={route("profile.edit")}>
+                        <Link
+                            href={route("profile.edit", {
+                                username: auth.user.username,
+                            })}
+                        >
                             <DropdownMenuItem>
                                 <UserIcon />
                                 Profile

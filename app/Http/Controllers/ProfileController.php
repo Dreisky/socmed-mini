@@ -1,6 +1,7 @@
 <?php
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -8,10 +9,10 @@ use Illuminate\Support\Facades\Storage;
 
 class ProfileController extends Controller
 {
-    public function index()
+    public function index(string $username)
     {
-        $user = auth()->user();
-        $userId = $user->id;
+        $user = User::where('username', $username)->firstOrFail();
+        $userId = auth()->id();
 
         return inertia('Home/Profile', [
             'user' => $user,
@@ -66,6 +67,22 @@ class ProfileController extends Controller
         $request->user()->update([
             'password' => Hash::make($request->password),
         ]);
+    }
+
+    public function update_profile_pic(Request $request)
+    {
+        $request->validate([
+            'profile_picture' => ['nullable', 'image'],
+        ]);
+
+        $user = $request->user();
+
+        if ($request->hasFile('profile_picture')) {
+            $path = $request->file('profile_picture')->store('profile_pictures', 'public');
+
+            $user->profile_picture = $path;
+            $user->save();
+        }
     }
 
     public function delete(Request $request)
