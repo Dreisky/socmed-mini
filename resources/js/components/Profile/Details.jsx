@@ -81,7 +81,7 @@ export default function Details({ user }) {
                         <Field>
                             <FieldLabel>Occupation</FieldLabel>
                             <Input
-                                className="text-lg py-6 px-4 max-w-xl"
+                                className="text-lg py-6 px-4 max-w-xl capitalize"
                                 value={data.occupation}
                                 onChange={(e) =>
                                     setData("occupation", e.target.value)
@@ -98,7 +98,7 @@ export default function Details({ user }) {
                         <Field>
                             <FieldLabel>Address</FieldLabel>
                             <Input
-                                className="text-lg py-6 px-4 max-w-xl"
+                                className="text-lg py-6 px-4 max-w-xl capitalize"
                                 value={data.address}
                                 onChange={(e) =>
                                     setData("address", e.target.value)

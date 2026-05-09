@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Link } from "@inertiajs/react";
 import { IconHandLoveYou, IconPencil } from "@tabler/icons-react";
 
-export default function Bio() {
+export default function Bio({ user }) {
     return (
         <Card>
             <CardContent className="flex flex-col gap-2">
@@ -14,7 +14,7 @@ export default function Bio() {
                     </Button>
                 </div>
 
-                <p className="text-center">Lorem Ipsum Dolor</p>
+                <p className="text-center">{user.bio}</p>
             </CardContent>
         </Card>
     );
