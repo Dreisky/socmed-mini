@@ -3,6 +3,7 @@ import ProfileInfo from "@/components/Profile/ProfileInfo";
 import UpdatePass from "@/components/Profile/UpdatePass";
 import DeleteAccount from "@/components/Profile/DeleteAccount";
 import ProfilePic from "@/components/Profile/ProfilePic";
+import Details from "@/components/Profile/Details";
 
 export default function ProfileInformation({ user }) {
     return (
@@ -13,6 +14,8 @@ export default function ProfileInformation({ user }) {
 
                     <ProfileInfo user={user} />
                 </div>
+
+                <Details user={user} />
 
                 <UpdatePass user={user} />
 

@@ -20,10 +20,13 @@ class User extends Authenticatable
         'username',
         'email',
         'password',
-        'birthday',
         'gender',
         'profile_picture',
         'cover_photo',
+        'bio',
+        'birthdate',
+        'occupation',
+        'address'
     ];
 
     public function posts()

@@ -1,7 +1,7 @@
 import { Card, CardContent, CardFooter } from "../ui/card";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
-
+import { Link } from "@inertiajs/react";
 import { IconPencilFilled } from "@tabler/icons-react";
 
 import { usePage } from "@inertiajs/react";
@@ -39,9 +39,15 @@ export default function PorfileHead() {
                         </div>
                     </div>
                     <div>
-                        <Button variant="outline">
-                            <IconPencilFilled /> Edit Profile
-                        </Button>
+                        <Link
+                            href={route("profile.edit", {
+                                username: auth.user.username,
+                            })}
+                        >
+                            <Button variant="outline">
+                                <IconPencilFilled /> Edit Profile
+                            </Button>
+                        </Link>
                     </div>
                 </div>
             </CardContent>

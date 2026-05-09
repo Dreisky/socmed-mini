@@ -24,8 +24,6 @@ export default function UpdatePass({ user }) {
         });
     };
 
-    console.log(data);
-
     return (
         <Card>
             <CardHeader>

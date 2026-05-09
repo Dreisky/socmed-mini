@@ -42,8 +42,6 @@ export default function ProifilePic({ user }) {
         });
     };
 
-    console.log(data);
-    console.log(preview);
     return (
         <Card className="h-full">
             <form className="flex flex-col h-full" onSubmit={handleSubmit}>

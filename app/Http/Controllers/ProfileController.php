@@ -57,6 +57,18 @@ class ProfileController extends Controller
         $request->user()->update($validated);
     }
 
+    public function update_about(Request $request)
+    {
+        $validated = $request->validate([
+            'bio' => ['nullable', 'min:3'],
+            'birthdate' => ['nullable', 'date'],
+            'occupation' => ['nullable', 'min:6'],
+            'address' => ['nullable', 'min:6'],
+        ]);
+
+        $request->user()->update($validated);
+    }
+
     public function update_pass(Request $request)
     {
         $request->validate([

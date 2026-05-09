@@ -24,8 +24,6 @@ export default function ProfileInfo({ user }) {
             },
         });
     };
-
-    console.log(data);
     return (
         <Card>
             <CardHeader>
