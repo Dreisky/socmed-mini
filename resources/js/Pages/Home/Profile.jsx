@@ -19,7 +19,7 @@ import PersonalDetails from "@/components/Profile/PersonalDetails";
 import Bio from "@/components/Profile/Bio";
 
 export default function Profile({ posts }) {
-    const { auth } = usePage().props;
+    const { auth, user } = usePage().props;
 
     const [activePost, setActivePost] = useState(null);
 
@@ -41,13 +41,13 @@ export default function Profile({ posts }) {
     return (
         <>
             <div className="max-w-7xl mx-auto space-y-4">
-                <CoverPhoto />
+                <CoverPhoto auth={auth} user={user} />
 
                 <div className="w-full">
                     <div className="grid grid-cols-5 w-full gap-4">
                         <div className="col-span-2 flex flex-col gap-4">
-                            <Bio user={auth.user} />
-                            <PersonalDetails user={auth.user} />
+                            <Bio auth={auth} user={user} />
+                            <PersonalDetails auth={auth} user={user} />
                         </div>
                         <div className="space-y-4 col-span-3">
                             {/* POST ADD CARD */}

@@ -3,12 +3,11 @@ import { Button } from "../ui/button";
 import { Input } from "@/components/ui/input";
 import { IconCameraFilled } from "@tabler/icons-react";
 import { useState, useRef } from "react";
-import { useForm, usePage } from "@inertiajs/react";
+import { useForm } from "@inertiajs/react";
 import { route } from "ziggy-js";
 import { toast } from "sonner";
 
-export default function CoverPhoto() {
-    const { auth } = usePage().props;
+export default function CoverPhoto({ auth, user }) {
     const coverPhotoRef = useRef(null);
 
     const [preview, setPreview] = useState(null);
@@ -18,8 +17,8 @@ export default function CoverPhoto() {
 
     const coverSrc = preview
         ? preview
-        : auth.user.cover_photo
-          ? `/storage/${auth.user.cover_photo}`
+        : user.cover_photo
+          ? `/storage/${user.cover_photo}`
           : "/images/coverphoto.png";
 
     const handleSubmit = (e) => {
@@ -50,14 +49,18 @@ export default function CoverPhoto() {
                         alt=""
                     />
 
-                    <Button
-                        type="button"
-                        className="absolute bottom-4 right-4"
-                        onClick={() => coverPhotoRef.current.click()}
-                    >
-                        <IconCameraFilled />{" "}
-                        {preview ? "Select Cover Photo" : "Edit Cover Photo"}
-                    </Button>
+                    {auth.user && auth.user.username === user.username && (
+                        <Button
+                            type="button"
+                            className="absolute bottom-4 right-4"
+                            onClick={() => coverPhotoRef.current.click()}
+                        >
+                            <IconCameraFilled />{" "}
+                            {preview
+                                ? "Select Cover Photo"
+                                : "Edit Cover Photo"}
+                        </Button>
+                    )}
 
                     {preview && (
                         <div className="absolute top-4 right-4 flex gap-2">
@@ -98,7 +101,7 @@ export default function CoverPhoto() {
                 </div>
             </form>
 
-            <ProfileHead />
+            <ProfileHead auth={auth} user={user} />
         </div>
     );
 }

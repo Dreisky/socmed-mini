@@ -2,11 +2,9 @@
 
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\CoverController;
-use App\Http\Controllers\DetailsController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LikeController;
 use App\Http\Controllers\MessagesController;
-use App\Http\Controllers\PersonalInfoController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RegisteredUserController;
@@ -50,7 +48,7 @@ Route::middleware(['auth'])->group(function () {
     Route::put('/profile/edit/about', [ProfileController::class, 'update_about'])->name('about.update');
     Route::put('/profile/edit/pass', [ProfileController::class, 'update_pass'])->name('pass.update');
     Route::put('/profile/edit/pic', [ProfileController::class, 'update_profile_pic'])->name('pic.update');
-    Route::delete('/profile/delete', [ProfileController::class, 'delete'])->name('account.delete');
+    Route::delete('/profile/delete', [ProfileController::class, 'delete'])->name('account.delete'); 
 
     // Cover Photo
     Route::post('/cover/update', [CoverController::class, 'storeCoverPhoto'])->name('profile.cover.update');

@@ -9,22 +9,24 @@ import {
 } from "@tabler/icons-react";
 import { route } from "ziggy-js";
 
-export default function PersonalDetails({ user }) {
+export default function PersonalDetails({ auth, user }) {
     return (
         <Card>
             <CardContent>
                 <div className="flex flex-col gap-2">
                     <div className="flex justify-between items-center">
                         <h1 className="font-bold text-lg">Personal Details</h1>
-                        <Link
-                            href={route("profile.edit", {
-                                username: user.username,
-                            })}
-                        >
-                            <Button variant="ghost">
-                                <IconPencil />
-                            </Button>
-                        </Link>
+                        {auth.user && auth.user.username === user.username && (
+                            <Link
+                                href={route("profile.edit", {
+                                    username: user.username,
+                                })}
+                            >
+                                <Button variant="ghost">
+                                    <IconPencil />
+                                </Button>
+                            </Link>
+                        )}
                     </div>
                 </div>
 

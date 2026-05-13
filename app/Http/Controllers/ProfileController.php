@@ -40,8 +40,14 @@ class ProfileController extends Controller
         ]);
     }
 
-    public function edit()
+    public function edit(string $username)
     {
+        $user = User::where('username', $username)->firstOrFail();
+
+        if (auth()->id() !== $user->id) {
+            abort(403); // or redirect back
+        }
+
         return inertia('Home/ProfileInformation', [
             'user' => Auth::user(),
         ]);

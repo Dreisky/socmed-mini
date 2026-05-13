@@ -16,6 +16,8 @@ import {
 
 export default function Register() {
     const { data, setData, post, processing, reset, errors } = useForm({
+        firstname: "",
+        lastname: "",
         username: "",
         email: "",
         gender: "",
@@ -60,6 +62,44 @@ export default function Register() {
                             encType="multipart/form-data"
                         >
                             <FieldGroup>
+                                <div className="flex gap-4">
+                                    <Field>
+                                        <FieldLabel htmlFor="firstname">
+                                            First Name
+                                        </FieldLabel>
+                                        <Input
+                                            id="firstname"
+                                            value={data.firstname}
+                                            onChange={(e) =>
+                                                setData(
+                                                    "firstname",
+                                                    e.target.value,
+                                                )
+                                            }
+                                            className="text-lg py-6 px-4"
+                                            placeholder="John"
+                                        />
+                                    </Field>
+
+                                    <Field>
+                                        <FieldLabel htmlFor="lastname">
+                                            Last Name
+                                        </FieldLabel>
+                                        <Input
+                                            id="lastname"
+                                            value={data.lastname}
+                                            onChange={(e) =>
+                                                setData(
+                                                    "lastname",
+                                                    e.target.value,
+                                                )
+                                            }
+                                            className="text-lg py-6 px-4"
+                                            placeholder="Smith"
+                                        />
+                                    </Field>
+                                </div>
+
                                 <Field>
                                     <FieldLabel htmlFor="name">
                                         Username
@@ -71,7 +111,7 @@ export default function Register() {
                                             setData("username", e.target.value)
                                         }
                                         className="text-lg py-6 px-4"
-                                        placeholder="John Smith"
+                                        placeholder="johnsmith"
                                     />
                                 </Field>
 
