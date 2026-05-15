@@ -16,6 +16,14 @@ class ProfileController extends Controller
 
         return inertia('Home/Profile', [
             'user' => $user,
+            'is_follower' => auth()->check()
+            ? $user->following->contains(auth()->id())
+            : false,
+            'is_following' => auth()->check()
+            ? auth()->user()->following->contains($user->id)
+            : false,
+            'followers_count' => $user->followers()->count(),
+            'following_count' => $user->following()->count(),
 
             'posts' => $user->posts()
                 ->with('user', 'likes', 'comments.user')

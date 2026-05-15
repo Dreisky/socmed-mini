@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\CoverController;
+use App\Http\Controllers\FollowController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LikeController;
 use App\Http\Controllers\MessagesController;
@@ -52,4 +53,7 @@ Route::middleware(['auth'])->group(function () {
 
     // Cover Photo
     Route::post('/cover/update', [CoverController::class, 'storeCoverPhoto'])->name('profile.cover.update');
+
+    // Follows
+    Route::post('/{username}/follow', [FollowController::class, 'follow'])->name('follow.toggle');
 });

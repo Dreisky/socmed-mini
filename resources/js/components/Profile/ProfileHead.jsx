@@ -4,7 +4,24 @@ import { Button } from "@/components/ui/button";
 import { Link } from "@inertiajs/react";
 import { IconPencilFilled } from "@tabler/icons-react";
 
+import { usePage, useForm } from "@inertiajs/react";
+import { route } from "ziggy-js";
+
 export default function PorfileHead({ auth, user }) {
+    const { is_follower, is_following, followers_count, following_count } =
+        usePage().props;
+
+    const { post } = useForm();
+
+    const toggleFollow = (e) => {
+        e.preventDefault();
+        post(
+            route("follow.toggle", {
+                username: user.username,
+            }),
+        );
+    };
+
     return (
         <Card className="rounded-none rounded-b-xl  border-none">
             <CardContent>
@@ -30,7 +47,14 @@ export default function PorfileHead({ auth, user }) {
                                     ({user.username})
                                 </span>
                             </h1>
-                            <p className="text-md font-semibold">67 Friends</p>
+                            <div className="flex gap-4">
+                                <p className="text-md font-semibold">
+                                    {followers_count ?? 0} Followers
+                                </p>
+                                <p className="text-md font-semibold">
+                                    {following_count ?? 0} Following
+                                </p>
+                            </div>
                         </div>
                     </div>
 
@@ -51,8 +75,12 @@ export default function PorfileHead({ auth, user }) {
 
                     {/* Follow Button */}
                     {auth.user.username !== user.username && (
-                        <Button>
-                            <IconPencilFilled /> Follow
+                        <Button onClick={toggleFollow}>
+                            {is_following
+                                ? "Unfollow"
+                                : is_follower
+                                  ? "Follow Back"
+                                  : "Follow"}
                         </Button>
                     )}
                 </div>
