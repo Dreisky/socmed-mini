@@ -5,6 +5,7 @@ use App\Http\Controllers\CoverController;
 use App\Http\Controllers\FollowController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LikeController;
+use App\Http\Controllers\MessageController;
 use App\Http\Controllers\MessagesController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\ProfileController;
@@ -39,8 +40,10 @@ Route::middleware(['auth'])->group(function () {
     // Comment
     Route::post('/comment', [CommentController::class, 'store'])->name('comment.store');
 
-    // Messages - WIP
-    Route::get('/messages', [MessagesController::class, 'index'])->name('messages.index');
+    // Messages
+    Route::get('/messages', [MessageController::class, 'index'])->name('messages.index');
+    Route::get('/messages/{username}', [MessageController::class, 'show'])->name('messages.show');
+    Route::post('/messages/{username}', [MessageController::class, 'store'])->name('messages.store');
 
     // Profile
     Route::get('/{username}', [ProfileController::class, 'index'])->name('profile.index');
@@ -56,4 +59,6 @@ Route::middleware(['auth'])->group(function () {
 
     // Follows
     Route::post('/{username}/follow', [FollowController::class, 'follow'])->name('follow.toggle');
+
+    
 });

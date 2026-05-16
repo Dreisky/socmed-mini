@@ -6,6 +6,7 @@ import { IconPencilFilled } from "@tabler/icons-react";
 
 import { usePage, useForm } from "@inertiajs/react";
 import { route } from "ziggy-js";
+import { toast } from "sonner";
 
 export default function PorfileHead({ auth, user }) {
     const { is_follower, is_following, followers_count, following_count } =
@@ -19,6 +20,18 @@ export default function PorfileHead({ auth, user }) {
             route("follow.toggle", {
                 username: user.username,
             }),
+            {
+                preserveScroll: true,
+                onSuccess: () => {
+                    toast.success(
+                        is_following
+                            ? "Unfollowed"
+                            : is_follower
+                              ? "Followed Back"
+                              : "Followed",
+                    );
+                },
+            },
         );
     };
 
